@@ -2,8 +2,8 @@ import { useContext, useState } from "react"
 import { i18n } from "../../i18n"
 import { AppContext } from "../../contexts/AppContext"
 import Header from "../../components/Header/External";
-import { Link } from "react-router-dom";
-import { InputAdornment, TextField } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { InputAdornment, Snackbar, TextField } from "@mui/material";
 import { BiChevronRight, BiLock, BiUser } from "react-icons/bi";
 import { FieldValues, useForm } from "react-hook-form";
 import { withMask } from "use-mask-input";
@@ -14,6 +14,8 @@ const Login: React.FC = () => {
   const { lang } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
+  const [ openSnack, setOpenSnak ] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   async function loginUser(fields: FieldValues) {
     setIsSubmitting(true);
@@ -29,11 +31,13 @@ const Login: React.FC = () => {
       console.log(data);
       setTimeout(() => {
         setIsSubmitting(false);
+        navigate('/');
       }, 1500)
     } catch(error) {
       console.log(error);
       setTimeout(() => {
         setIsSubmitting(false);
+        setOpenSnak(true);
       }, 1500);
     }
   }
@@ -86,6 +90,13 @@ const Login: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      <Snackbar
+      open={openSnack}
+      autoHideDuration={3000}
+      onClose={() => setOpenSnak(false)}
+      message="Erro ao efetuar login"
+      />
     </>
   )
 }
