@@ -21,14 +21,20 @@ const Login: React.FC = () => {
       const params = {
         login: fields.login,
         senha: fields.password,
-        idBanco: ""
+        idBanco: "5"
       }
-      let { data } = await api.get('/login/usuario', {params});
+      let { data } = await api.get('/login/usuario', {
+        params
+      });
       console.log(data);
-      setIsSubmitting(false);
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 1500)
     } catch(error) {
       console.log(error);
-      setIsSubmitting(false);
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 1500);
     }
   }
 
