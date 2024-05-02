@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.16",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "mui-one-time-password-input": "^2.0.2",
     "postcss": "^8.4.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

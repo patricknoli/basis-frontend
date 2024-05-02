@@ -1,6 +1,31 @@
+import { useState } from "react";
+import Header from "../../components/Header/External";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
+
 const ResetPassword: React.FC = () => {
+  const [ step, setStep ] = useState<1 | 2 | 3 | 4>(1);
+  const [ code, setCode ] = useState<string>("");
+
   return (
-    <>Reset Password</>
+    <>
+      <Header backButton={true} />
+      <div className="p-5">
+        {step == 1 && (
+          <StepOne next={() => setStep(2)} />
+        )}
+        
+        {step == 2 && (
+          <StepTwo saveCode={setCode} next={() => setStep(3)} />
+        )}
+
+        {step == 3 && (
+          <StepThree />
+        )}
+
+      </div>
+    </>
   )
 }
 
