@@ -11,7 +11,7 @@ import { LoadingButton } from "@mui/lab";
 import { api } from "../../services/api";
 
 const Login: React.FC = () => {
-  const { lang } = useContext(AppContext);
+  const { lang, updateUser } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
   const [ openSnack, setOpenSnak ] = useState<boolean>(false);
@@ -20,19 +20,21 @@ const Login: React.FC = () => {
   async function loginUser(fields: FieldValues) {
     setIsSubmitting(true);
     try {
-      const params = {
-        login: fields.login,
-        senha: fields.password,
-        idBanco: "5"
-      }
-      let { data } = await api.get('/login/usuario', {
-        params
+      let response = await api.get('/login/usuario', {
+        headers: {
+          login: fields.login,
+          senha: fields.password,
+          idBanco: "5"
+        }
       });
-      console.log(data);
-      setTimeout(() => {
-        setIsSubmitting(false);
-        navigate('/');
-      }, 1500)
+      if(response.status == 200) {
+        updateUser(response.data);
+        setTimeout(() => {
+          setIsSubmitting(false);
+          navigate('/');
+        }, 1500)
+      }
+      
     } catch(error) {
       console.log(error);
       setTimeout(() => {

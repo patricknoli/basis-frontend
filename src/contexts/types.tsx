@@ -3,9 +3,26 @@ export type AppProviderProps = {
 }
 
 export type AppContextType = {
-  lang: "pt-br" | "en-us"
+  updateUser: (auth_user: UserType[]) => void;
+  changeLanguage: (lang: "pt-br" | "en-us") => void;
+  authenticated: boolean;
+  lang: "pt-br" | "en-us";
+  user: UserType[] | null
+}
+
+export type UserType = {
+  nome: string;
+  correntista: AccountHolderType[]
+}
+
+export type AccountHolderType = {
+  idcorrentista: number;
+  codigopesquisa: string;
+  tipocorrentista: "P" | "L";
 }
 
 export const AppContextInitialValues = {
-  lang: "pt-br"
+  lang: "pt-br",
+  user: [],
+  authenticated: false
 }
