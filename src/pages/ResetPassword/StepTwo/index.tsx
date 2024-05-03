@@ -23,8 +23,8 @@ const StepTwo: React.FC<StepTwoProps> = ({saveCode, next}) => {
 
   return (
     <>
-      <h1 className="text-xl font-bold text-[#2F3367]">{i18n[lang].reset_pass_second_step_title}</h1>
-      <p className="mt-3 text-xs">{i18n[lang].reset_pass_second_step_subtitle}</p>
+      <h1 className="text-xl md:text-3xl font-bold text-[#2F3367]">{i18n[lang].reset_pass_second_step_title}</h1>
+      <p className="mt-3 text-xs md:text-base">{i18n[lang].reset_pass_second_step_subtitle}</p>
 
       <MuiOtpInput className="my-6" length={6} 
       onChange={(value) => setCode(value)} value={code} />
