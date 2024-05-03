@@ -10,6 +10,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [lang, setLang] = useState<"pt-br" | "en-us">("pt-br");
   const [user, setUser] = useState<UserType[] | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [profile, setProfile] = useState<"owner" | "tenant" | null>(null);
 
   function updateUser(auth_user: UserType[]) {
     setUser(auth_user);
@@ -17,6 +18,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   function changeLanguage(lang: "pt-br" | "en-us") {
     setLang(lang);
+  }
+
+  function changeProfile(selected_profile: "owner" | "tenant") {
+    setProfile(selected_profile)
   }
 
   useEffect(() => {
@@ -31,9 +36,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     <AppContext.Provider value={{
       updateUser,
       changeLanguage,
+      changeProfile,
       lang,
       user,
-      authenticated
+      authenticated,
+      profile
     }}>
       {children}
     </AppContext.Provider>

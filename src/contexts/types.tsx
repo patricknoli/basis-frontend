@@ -5,9 +5,11 @@ export type AppProviderProps = {
 export type AppContextType = {
   updateUser: (auth_user: UserType[]) => void;
   changeLanguage: (lang: "pt-br" | "en-us") => void;
+  changeProfile: (profile: "owner" | "tenant") => void;
   authenticated: boolean;
   lang: "pt-br" | "en-us";
-  user: UserType[] | null
+  user: UserType[] | null;
+  profile: "owner" | "tenant" | null;
 }
 
 export type UserType = {
