@@ -17,10 +17,13 @@ export const i18n = {
     reset_pass_third_step_title: "Quase lá!",
     reset_pass_third_step_subtitle: "Por gentileza, digite sua nova senha",
     reset_pass_third_step_input_password: "Senha",
-    reset_pass_third_step_input_password_confirm: "Confirme sua senha"
+    reset_pass_third_step_input_password_confirm: "Confirme sua senha",
+    reset_pass_fourth_step_title: "Nova senha criada com sucesso!",
+    reset_pass_fourth_step_subtitle: "Faça login com a nova senha criada",
+    reset_pass_fourth_step_cta_label: "Fazer login"
   },
   "en-us": {
-    login_title: "Login",
+    login_title: "Log in",
     login_subtitle: "Select your account",
     login_input_document: "CPF/CNPJ",
     login_input_password: "Password",
@@ -34,9 +37,12 @@ export const i18n = {
     reset_pass_remember_link: "Faça login aqui",
     reset_pass_second_step_title: "Type your code",
     reset_pass_second_step_subtitle: "We've sent a 4 digit code to your email, please type it here",
-    reset_pass_third_step_title: "",
-    reset_pass_third_step_subtitle: "",
-    reset_pass_third_step_input_password: "",
-    reset_pass_third_step_input_password_confirm: ""
+    reset_pass_third_step_title: "Almost there!",
+    reset_pass_third_step_subtitle: "Please type your new password",
+    reset_pass_third_step_input_password: "Password",
+    reset_pass_third_step_input_password_confirm: "Confirm password",
+    reset_pass_fourth_step_title: "New password successfully created!",
+    reset_pass_fourth_step_subtitle: "Log in with the new password",
+    reset_pass_fourth_step_cta_label: "Log in"
   }
 }
