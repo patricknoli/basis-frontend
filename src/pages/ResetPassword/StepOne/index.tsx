@@ -10,7 +10,7 @@ import { withMask } from "use-mask-input";
 import { api } from "../../../services/api";
 import { StepOneProps } from "./types";
 
-const StepOne: React.FC<StepOneProps> = ({next}) => {
+const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
   const { lang } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
@@ -27,6 +27,7 @@ const StepOne: React.FC<StepOneProps> = ({next}) => {
       });
       if(response.status == 200) {
         next();
+        saveDocument(fields.document);
       } else {
         setOpenSnack(true);
       }

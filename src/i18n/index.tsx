@@ -13,7 +13,11 @@ export const i18n = {
     reset_pass_remember_cta: "Lembrou sua senha?",
     reset_pass_remember_link: "Faça login aqui",
     reset_pass_second_step_title: "Digite seu código",
-    reset_pass_second_step_subtitle: "Enviamos um código de 4 dígitos para seu email, por gentileza digite o código aqui"
+    reset_pass_second_step_subtitle: "Enviamos um código de 4 dígitos para seu email, por gentileza digite o código aqui",
+    reset_pass_third_step_title: "Quase lá!",
+    reset_pass_third_step_subtitle: "Por gentileza, digite sua nova senha",
+    reset_pass_third_step_input_password: "Senha",
+    reset_pass_third_step_input_password_confirm: "Confirme sua senha"
   },
   "en-us": {
     login_title: "Login",
@@ -29,6 +33,10 @@ export const i18n = {
     reset_pass_remember_cta: "Lembrou sua senha?",
     reset_pass_remember_link: "Faça login aqui",
     reset_pass_second_step_title: "Type your code",
-    reset_pass_second_step_subtitle: "We've sent a 4 digit code to your email, please type it here"
+    reset_pass_second_step_subtitle: "We've sent a 4 digit code to your email, please type it here",
+    reset_pass_third_step_title: "",
+    reset_pass_third_step_subtitle: "",
+    reset_pass_third_step_input_password: "",
+    reset_pass_third_step_input_password_confirm: ""
   }
 }

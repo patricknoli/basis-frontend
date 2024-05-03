@@ -7,13 +7,14 @@ import StepThree from "./StepThree";
 const ResetPassword: React.FC = () => {
   const [ step, setStep ] = useState<1 | 2 | 3 | 4>(1);
   const [ code, setCode ] = useState<string>("");
+  const [ document, setDocument ] = useState<string>("");
 
   return (
     <>
       <Header backButton={true} />
       <div className="p-5">
         {step == 1 && (
-          <StepOne next={() => setStep(2)} />
+          <StepOne saveDocument={setDocument} next={() => setStep(2)} />
         )}
         
         {step == 2 && (
@@ -21,7 +22,8 @@ const ResetPassword: React.FC = () => {
         )}
 
         {step == 3 && (
-          <StepThree />
+          <StepThree code={code} document={document} 
+          next={() => setStep(4)}/>
         )}
 
       </div>
