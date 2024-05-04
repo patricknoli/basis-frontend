@@ -17,7 +17,7 @@ export const PrivateRoute: React.FC<Props> = ({
       return <RouteComponent />;
     } else {
       localStorage.setItem("destination_url", window.location.pathname);
-      return <Navigate to="/" />;
+      return <Navigate to="/login" />;
     }
   }
 };

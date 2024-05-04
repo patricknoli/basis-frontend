@@ -32,7 +32,7 @@ const Login: React.FC = () => {
         updateUser(response.data);
         setTimeout(() => {
           setIsSubmitting(false);
-          navigate('/');
+          navigate('/real-estates');
         }, 1500)
       }
       
