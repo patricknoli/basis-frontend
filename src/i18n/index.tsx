@@ -18,6 +18,8 @@ export const i18n = {
     reset_pass_third_step_subtitle: "Por gentileza, digite sua nova senha",
     reset_pass_third_step_input_password: "Senha",
     reset_pass_third_step_input_password_confirm: "Confirme sua senha",
+    reset_pass_third_step_password_strength_words: ['fraca', 'fraca', 'mediana', 'boa', 'forte'],
+    reset_pass_third_step_password_too_short: 'muito curta',
     reset_pass_fourth_step_title: "Nova senha criada com sucesso!",
     reset_pass_fourth_step_subtitle: "Faça login com a nova senha criada",
     reset_pass_fourth_step_cta_label: "Fazer login"
@@ -41,6 +43,8 @@ export const i18n = {
     reset_pass_third_step_subtitle: "Please type your new password",
     reset_pass_third_step_input_password: "Password",
     reset_pass_third_step_input_password_confirm: "Confirm password",
+    reset_pass_third_step_password_strength_words: ['weak', 'weak', 'okay', 'good', 'strong'],
+    reset_pass_third_step_password_too_short: 'too short',
     reset_pass_fourth_step_title: "New password successfully created!",
     reset_pass_fourth_step_subtitle: "Log in with the new password",
     reset_pass_fourth_step_cta_label: "Log in"

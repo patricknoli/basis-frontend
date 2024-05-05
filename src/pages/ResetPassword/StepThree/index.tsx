@@ -9,10 +9,11 @@ import { MdArrowForward } from "react-icons/md";
 import { api } from "../../../services/api";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { StepThreeProps } from "./types";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
   const { lang } = useContext(AppContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
   const [ openSnack, setOpenSnack ] = useState<boolean>(false);
   const [ snackText, setSnackText ] = useState<string>("");
@@ -78,6 +79,10 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
           )
         }}
         />
+        <PasswordStrengthBar password={watch('password')} 
+        scoreWords={i18n[lang].reset_pass_third_step_password_strength_words}
+        shortScoreWord={i18n[lang].reset_pass_third_step_password_too_short}
+         />
 
         <TextField type={confirmPasswordShow ? "text" : "password"} {...register('password_confirm')} 
         label={i18n[lang].reset_pass_third_step_input_password_confirm} variant="outlined"
