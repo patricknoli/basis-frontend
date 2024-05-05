@@ -10,7 +10,7 @@ const Header: React.FC<{ backButton?: boolean }> = ({backButton}) => {
          <BiChevronLeft size={24} />
         </Link>
       )}
-      <div className="flex gap-4 items-center justify-center">
+      <div className={`flex gap-2 items-center ${backButton ? "justify-center" : "justify-start"}`}>
         <img src={logo} alt="Logo" className="w-[30px]" />
         <h1 className="font-bold text-md">Logo Empresa</h1>
       </div>
