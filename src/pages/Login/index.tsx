@@ -10,12 +10,14 @@ import { withMask } from "use-mask-input";
 import { LoadingButton } from "@mui/lab";
 import { api } from "../../services/api";
 import hero from "../../assets/mock-hero.png";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Login: React.FC = () => {
   const { lang, updateUser } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
   const [ openSnack, setOpenSnak ] = useState<boolean>(false);
+  const [ passwordShow, setPasswordShow ] = useState<boolean>(false);
   const navigate = useNavigate();
 
   async function loginUser(fields: FieldValues) {
@@ -66,11 +68,11 @@ const Login: React.FC = () => {
                   <InputAdornment position="start">
                     <BiUser />
                   </InputAdornment>
-                ),
+                )
               }}
               inputProps={<input ref={withMask('cpf')} />}
               {...register('login')} />
-              <TextField type="password" {...register('password')} 
+              <TextField type={passwordShow ? "text" : "password"} {...register('password')} 
               label={i18n[lang].login_input_password} variant="outlined"
               InputProps={{
                 startAdornment: (
@@ -78,6 +80,16 @@ const Login: React.FC = () => {
                     <BiLock />
                   </InputAdornment>
                 ),
+                endAdornment: (
+                  <InputAdornment className="cursor-pointer" position="end"
+                  onClick={() => setPasswordShow(!passwordShow)}>
+                    {!passwordShow ? (
+                      <IoMdEye />
+                    ) : (
+                      <IoMdEyeOff />
+                    )}
+                  </InputAdornment>
+                )
               }}
               />
 

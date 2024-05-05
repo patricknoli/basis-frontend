@@ -79,7 +79,7 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
         }}
         />
 
-        <TextField type={passwordShow ? "text" : "password"} {...register('password_confirm')} 
+        <TextField type={confirmPasswordShow ? "text" : "password"} {...register('password_confirm')} 
         label={i18n[lang].reset_pass_third_step_input_password_confirm} variant="outlined"
         InputProps={{
           startAdornment: (
