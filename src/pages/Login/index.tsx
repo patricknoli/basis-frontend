@@ -60,8 +60,8 @@ const Login: React.FC = () => {
         </div>
         <div className="p-5 flex items-start md:items-center justify-center basis-full md:basis-[55%]">
           <div className="max-w-[500px] w-full">
-            <h1 className="text-3xl font-bold">{i18n[lang].login_title}</h1>
-            <p className="mt-3">{i18n[lang].login_subtitle}</p>
+            <h1 className="text-xl md:text-3xl font-bold text-[#2F3367]">{i18n[lang].login_title}</h1>
+            <p className="mt-3 text-xs md:text-base w-[55%] md:w-full">{i18n[lang].login_subtitle}</p>
 
             <form onSubmit={handleSubmit(loginUser)} className="flex flex-col gap-3 my-6">
               <TextField label={i18n[lang].login_input_document} variant="outlined"
@@ -100,7 +100,7 @@ const Login: React.FC = () => {
               }}
               />
 
-              <Link className="text-sm font-semibold mb-6" to="/login/reset">
+              <Link className="text-xs md:text-sm font-semibold mb-6" to="/login/reset">
                 {i18n[lang].login_forgot_password}
               </Link>
 
@@ -113,8 +113,8 @@ const Login: React.FC = () => {
             <hr />
 
             <div className="flex items-center justify-between mt-6">
-              <span className="text-sm text-zinc-500 font-semibold">{i18n[lang].login_create_account_cta}</span>
-              <Link className="text-sm font-semibold" to="/register">
+              <span className="text-xs md:text-base text-zinc-500 font-semibold">{i18n[lang].login_create_account_cta}</span>
+              <Link className="text-xs md:text-base font-semibold" to="/register">
                 {i18n[lang].login_create_account_link}
               </Link>
             </div>
