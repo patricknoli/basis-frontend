@@ -9,9 +9,9 @@ import { FieldValues, useForm } from "react-hook-form";
 import { withMask } from "use-mask-input";
 import { LoadingButton } from "@mui/lab";
 import { api } from "../../services/api";
-import hero from "../../assets/mock-hero.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { validateDocument } from "../../support/validateDocument";
+import Hero from "../../components/Hero";
 
 const Login: React.FC = () => {
   const { lang, updateUser } = useContext(AppContext);
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
       </div>
       <div className="flex h-[100vh]">
         <div className="hero hidden md:block basis-[45%]">
-          <img src={hero} alt="" className="w-full h-[100vh]" />
+          <Hero />
         </div>
         <div className="p-5 flex items-start md:items-center justify-center basis-full md:basis-[55%]">
           <div className="max-w-[500px] w-full">

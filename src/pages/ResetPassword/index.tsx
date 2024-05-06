@@ -4,7 +4,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
-import hero from "../../assets/mock-hero.png";
+import Hero from "../../components/Hero";
 
 const ResetPassword: React.FC = () => {
   const [ step, setStep ] = useState<1 | 2 | 3 | 4>(1);
@@ -18,7 +18,7 @@ const ResetPassword: React.FC = () => {
       </div>
       <div className="flex h-[100vh]">
         <div className="hero hidden md:block basis-[45%]">
-          <img src={hero} className="w-full h-[100vh]" />
+          <Hero />
         </div>
         <div className="p-5 flex items-start md:items-center justify-center basis-full md:basis-[55%]">
           <div className="max-w-[500px] w-full">
