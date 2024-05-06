@@ -11,12 +11,14 @@ import { LoadingButton } from "@mui/lab";
 import { api } from "../../services/api";
 import hero from "../../assets/mock-hero.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { validateDocument } from "../../support/validateDocument";
 
 const Login: React.FC = () => {
   const { lang, updateUser } = useContext(AppContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
   const [ openSnack, setOpenSnak ] = useState<boolean>(false);
+  const [ invalidDocument, setInvalidDocument ] = useState<boolean>(false);
   const [ passwordShow, setPasswordShow ] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -63,15 +65,20 @@ const Login: React.FC = () => {
 
             <form onSubmit={handleSubmit(loginUser)} className="flex flex-col gap-3 my-6">
               <TextField label={i18n[lang].login_input_document} variant="outlined"
+              error={invalidDocument}
+              helperText={invalidDocument && i18n[lang].login_input_document_error}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
                     <BiUser />
                   </InputAdornment>
-                )
+                ),
               }}
-              inputProps={<input ref={withMask('cpf')} />}
-              {...register('login')} />
+              inputProps={<input ref={withMask('cpf')}
+              />}
+              {...register('login', {
+                onBlur: () => setInvalidDocument(!validateDocument(watch('login')))
+              })} />
               <TextField type={passwordShow ? "text" : "password"} {...register('password')} 
               label={i18n[lang].login_input_password} variant="outlined"
               InputProps={{

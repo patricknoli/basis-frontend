@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import { withMask } from "use-mask-input";
 import { api } from "../../../services/api";
 import { StepOneProps } from "./types";
+import { validateDocument } from "../../../support/validateDocument";
 
 const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
   const { lang } = useContext(AppContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
   const [ openSnack, setOpenSnack ] = useState<boolean>(false);
+  const [ invalidDocument, setInvalidDocument ] = useState<boolean>(false);
 
   async function requestReset(fields: FieldValues) {
     setIsSubmitting(true);
@@ -50,9 +52,13 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
 
       <form onSubmit={handleSubmit(requestReset)} className="flex flex-col gap-3 my-6">
         <div className="mb-6 flex flex-col gap-3">
-          <TextField {...register('document')}
+          <TextField {...register('document', {
+            onBlur: () => setInvalidDocument(!validateDocument(watch('document')))
+          })}
+          error={invalidDocument}
+          helperText={invalidDocument && i18n[lang].login_input_document_error}
           label={i18n[lang].reset_pass_input_email} variant="outlined"
-          InputProps={{
+          InputProps={{ 
             startAdornment: (
               <InputAdornment position="start">
                 <MdPerson />
