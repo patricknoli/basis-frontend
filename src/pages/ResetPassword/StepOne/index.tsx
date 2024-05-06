@@ -29,13 +29,17 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
         next();
         saveDocument(fields.document);
       } else {
-        setOpenSnack(true);
+        setTimeout(() => {
+          setOpenSnack(true);
+        }, 1500);
       }
       setIsSubmitting(false);
     } catch(error) {
       console.log(error);
-      setIsSubmitting(false);
-      setOpenSnack(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setOpenSnack(true);
+      }, 1500);
     }
   }
 

@@ -14,10 +14,14 @@ const StepTwo: React.FC<StepTwoProps> = ({saveCode, next}) => {
 
   function handleNext() {
     if(code.length < 6) {
-      setOpenSnack(true);
+      setTimeout(() => {
+        setOpenSnack(true);
+      }, 1500)
     } else {
       saveCode(code);
-      next();
+      setTimeout(() => {
+        next();
+      }, 1500)
     }
   }
 

@@ -43,13 +43,17 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
         next();
       } else {
         setSnackText("Erro ao atualizar a senha");
-        setOpenSnack(true);
+        setTimeout(() => {
+          setOpenSnack(true);
+        }, 1500);
       }
       setIsSubmitting(false);
     } catch(error) {
       setSnackText("Erro ao atualizar a senha");
-      setOpenSnack(true);
-      setIsSubmitting(false);
+      setTimeout(() => {
+        setOpenSnack(true);
+        setIsSubmitting(false);
+      }, 1500)
     }
   }
 
