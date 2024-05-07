@@ -1,4 +1,4 @@
-import { MemoryRouter, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import Login from './index'
 import { mount } from "cypress/react18"
 import { AppProvider } from '../../contexts/AppContext'
