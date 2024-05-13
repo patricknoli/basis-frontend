@@ -66,7 +66,7 @@ const Login: React.FC = () => {
             <form onSubmit={handleSubmit(loginUser)} className="flex flex-col gap-3 my-6">
               <TextField label={i18n[lang].login_input_document} variant="outlined"
               error={invalidDocument}
-              helperText={invalidDocument && i18n[lang].login_input_document_error}
+              helperText={invalidDocument && i18n[lang].global_invalid_document_error}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
 
             <div className="flex items-center justify-between mt-6">
               <span className="text-xs md:text-base text-zinc-500 font-semibold">{i18n[lang].login_create_account_cta}</span>
-              <Link className="text-xs md:text-base font-semibold" to="/register">
+              <Link className="text-xs md:text-base font-semibold" to="/sign-up">
                 {i18n[lang].login_create_account_link}
               </Link>
             </div>

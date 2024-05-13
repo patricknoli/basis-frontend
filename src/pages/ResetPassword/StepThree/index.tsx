@@ -84,8 +84,8 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
         }}
         />
         <PasswordStrengthBar password={watch('password')} 
-        scoreWords={i18n[lang].reset_pass_third_step_password_strength_words}
-        shortScoreWord={i18n[lang].reset_pass_third_step_password_too_short}
+        scoreWords={i18n[lang].global_password_strength_words}
+        shortScoreWord={i18n[lang].global_password_too_short}
          />
 
         <TextField type={confirmPasswordShow ? "text" : "password"} {...register('password_confirm')} 

@@ -56,7 +56,7 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
             onBlur: () => setInvalidDocument(!validateDocument(watch('document')))
           })}
           error={invalidDocument}
-          helperText={invalidDocument && i18n[lang].login_input_document_error}
+          helperText={invalidDocument && i18n[lang].global_invalid_document_error}
           label={i18n[lang].reset_pass_input_email} variant="outlined"
           InputProps={{ 
             startAdornment: (
