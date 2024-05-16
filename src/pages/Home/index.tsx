@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         <p className="font-light text-lg mt-2">{i18n[lang].home_subtitle}</p>
 
         <div className="grid grid-cols-2 gap-4 mt-6">
-          <Link to="/real-states" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+          <Link to="/real-estates" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
             <CiHome size={45} />
             <span className="text-sm">{i18n[lang].home_nav_real_state}</span>
           </Link>
