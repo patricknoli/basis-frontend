@@ -9,6 +9,7 @@ export type AppContextType = {
   authenticated: boolean;
   lang: "pt-br" | "en-us";
   user: UserType[] | null;
+  userName: string | undefined;
   profile: "owner" | "tenant" | null;
 }
 

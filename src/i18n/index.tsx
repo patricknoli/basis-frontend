@@ -41,7 +41,21 @@ export const i18n = {
     sign_up_fourth_step_input_password_confirm: "Confirme sua senha",
     sign_up_fifth_step_title: "Cadastro realizado com sucesso",
     sign_up_fifth_step_subtitle: "Faça login com seu documento e senha cadastrados",
-    sign_up_fifth_step_cta: "Fazer login"
+    sign_up_fifth_step_cta: "Fazer login",
+    home_title: "Olá, ",
+    home_subtitle: "Bem vindo de volta!",
+    home_nav_real_state: "Imóveis",
+    home_nav_reports: "Informes",
+    home_nav_documents: "Documentos",
+    home_nav_videos: "Vídeos",
+    home_other_nav_cta: "Outras informações",
+    home_nav_pwa: "Instalar no meu celular",
+    home_pwa_dialog_title: "Instalar app",
+    home_pwa_dialog_text_piece_one: "Clique no ícone",
+    home_pwa_dialog_text_piece_two: "ou",
+    home_pwa_dialog_text_piece_three: "e depois em",
+    home_pwa_dialog_text_piece_four: '"Adicionar a Tela inicial" para instalar o aplicativo em seu celular',
+    home_pwa_dialog_close: "Fechar"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -85,6 +99,20 @@ export const i18n = {
     sign_up_fourth_step_input_password_confirm: "Confirme sua senha",
     sign_up_fifth_step_title: "Sign up succefuly finished",
     sign_up_fifth_step_subtitle: "Log in with your document and password registered",
-    sign_up_fifth_step_cta: "Log in"
+    sign_up_fifth_step_cta: "Log in",
+    home_title: "Hello, ",
+    home_subtitle: "Welcome back!",
+    home_nav_real_state: "Real Estates",
+    home_nav_reports: "Reports",
+    home_nav_documents: "Documents",
+    home_nav_videos: "Videos",
+    home_other_nav_cta: "Other information",
+    home_nav_pwa: "Install on my cellphone",
+    home_pwa_dialog_title: "App install",
+    home_pwa_dialog_text_piece_one: "Click on icon",
+    home_pwa_dialog_text_piece_two: "or",
+    home_pwa_dialog_text_piece_three: "and then",
+    home_pwa_dialog_text_piece_four: '"Add to home screen" to install the app on your cellphone',
+    home_pwa_dialog_close: "Close"
   }
 }

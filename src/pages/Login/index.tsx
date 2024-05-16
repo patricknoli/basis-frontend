@@ -16,11 +16,12 @@ import Hero from "../../components/Hero";
 const Login: React.FC = () => {
   const { lang, updateUser } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
-  const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
-  const [ openSnack, setOpenSnak ] = useState<boolean>(false);
-  const [ invalidDocument, setInvalidDocument ] = useState<boolean>(false);
-  const [ passwordShow, setPasswordShow ] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openSnack, setOpenSnak] = useState<boolean>(false);
+  const [invalidDocument, setInvalidDocument] = useState<boolean>(false);
+  const [passwordShow, setPasswordShow] = useState<boolean>(false);
   const navigate = useNavigate();
+  const isMobile = window.innerWidth <= 768;
 
   async function loginUser(fields: FieldValues) {
     setIsSubmitting(true);
@@ -32,15 +33,15 @@ const Login: React.FC = () => {
           idBanco: "5"
         }
       });
-      if(response.status == 200) {
+      if (response.status == 200) {
         updateUser(response.data);
         setTimeout(() => {
           setIsSubmitting(false);
-          navigate('/real-estates');
+          navigate(isMobile ? '/home' : '/real-estates');
         }, 1500)
       }
-      
-    } catch(error) {
+
+    } catch (error) {
       console.log(error);
       setTimeout(() => {
         setIsSubmitting(false);
@@ -65,39 +66,39 @@ const Login: React.FC = () => {
 
             <form onSubmit={handleSubmit(loginUser)} className="flex flex-col gap-3 my-6">
               <TextField label={i18n[lang].login_input_document} variant="outlined"
-              error={invalidDocument}
-              helperText={invalidDocument && i18n[lang].global_invalid_document_error}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <BiUser />
-                  </InputAdornment>
-                ),
-              }}
-              inputProps={<input ref={withMask('cpf')}
-              />}
-              {...register('login', {
-                onBlur: () => setInvalidDocument(!validateDocument(watch('login')))
-              })} />
-              <TextField type={passwordShow ? "text" : "password"} {...register('password')} 
-              label={i18n[lang].login_input_password} variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <BiLock />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment className="cursor-pointer" position="end"
-                  onClick={() => setPasswordShow(!passwordShow)}>
-                    {!passwordShow ? (
-                      <IoMdEye />
-                    ) : (
-                      <IoMdEyeOff />
-                    )}
-                  </InputAdornment>
-                )
-              }}
+                error={invalidDocument}
+                helperText={invalidDocument && i18n[lang].global_invalid_document_error}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <BiUser />
+                    </InputAdornment>
+                  ),
+                }}
+                inputProps={<input ref={withMask('cpf')}
+                />}
+                {...register('login', {
+                  onBlur: () => setInvalidDocument(!validateDocument(watch('login')))
+                })} />
+              <TextField type={passwordShow ? "text" : "password"} {...register('password')}
+                label={i18n[lang].login_input_password} variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <BiLock />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment className="cursor-pointer" position="end"
+                      onClick={() => setPasswordShow(!passwordShow)}>
+                      {!passwordShow ? (
+                        <IoMdEye />
+                      ) : (
+                        <IoMdEyeOff />
+                      )}
+                    </InputAdornment>
+                  )
+                }}
               />
 
               <Link className="text-xs md:text-sm font-semibold mb-6" to="/login/reset">
@@ -105,7 +106,7 @@ const Login: React.FC = () => {
               </Link>
 
               <LoadingButton variant="contained" endIcon={<BiChevronRight />}
-              loading={isSubmitting} type="submit"> 
+                loading={isSubmitting} type="submit">
                 Login
               </LoadingButton>
             </form>
@@ -123,10 +124,10 @@ const Login: React.FC = () => {
       </div>
 
       <Snackbar
-      open={openSnack}
-      autoHideDuration={3000}
-      onClose={() => setOpenSnak(false)}
-      message="Erro ao efetuar login"
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnak(false)}
+        message="Erro ao efetuar login"
       />
     </>
   )

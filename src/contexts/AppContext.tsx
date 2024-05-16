@@ -11,6 +11,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [user, setUser] = useState<UserType[] | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [profile, setProfile] = useState<"owner" | "tenant" | null>(null);
+  const [userName, setUserName] = useState<string | undefined>("");
 
   function updateUser(auth_user: UserType[]) {
     setUser(auth_user);
@@ -25,11 +26,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    if(!!user && user.length > 0) {
+    if (!!user && user.length > 0) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
+    setUserName(
+      profile == "owner" ? user?.find((item) => item.correntista[0].tipocorrentista == "P")?.nome
+        : user?.find((item) => item.correntista[0].tipocorrentista == "L")?.nome
+    )
   }, [user])
 
   return (
@@ -40,7 +45,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       lang,
       user,
       authenticated,
-      profile
+      profile,
+      userName
     }}>
       {children}
     </AppContext.Provider>
