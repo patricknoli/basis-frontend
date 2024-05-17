@@ -9,7 +9,7 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep }) => {
       {steps.map((step) => (
         <>
           <div>
-            {activeStep == step ? (
+            {activeStep >= step ? (
               <TbCircleFilled size={12} color="#5D41D0" />
             ) : (
               <FaRegCircle size={10} color="#B0AAAA" />

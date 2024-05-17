@@ -71,8 +71,8 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
         <Divider />
         {reportsList && (
           <div className="flex flex-col gap-2">
-            {reportsList.map((report) => (
-              <FormControlLabel control={<Checkbox onChange={() => handleSelection(report.descricao)}
+            {reportsList.map((report, index) => (
+              <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report.descricao)}
                 checked={selectedReports.find((item) => item == report.descricao) ? true : false} />}
                 label={report.descricao} />
             ))}
@@ -80,7 +80,7 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
         )}
       </div>
 
-      <div className="fixed left-0 bottom-3 w-full px-8">
+      <div className="fixed left-0 bottom-3 w-full px-8 z-50">
         <LoadingButton className="w-full" variant="contained" startIcon={<MdArrowForward />}
           loading={isSubmitting} onClick={() => handleNext()}>
           Próximo
