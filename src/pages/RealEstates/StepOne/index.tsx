@@ -40,21 +40,41 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
     } catch (error) { }
   }
 
+  function handleSelectAll(select: boolean) {
+    if (select) {
+      let selectedObj: string[] = [];
+      reportsList.map((report) => {
+        selectedObj.push(report.descricao);
+      })
+      setSelectedReports(selectedObj);
+    } else {
+      setSelectedReports([]);
+    }
+  }
+
   useEffect(() => {
     getReports();
   }, [])
+
+  useEffect(() => {
+    handleSelectAll(true);
+  }, [reportsList])
 
   return (
     <div className="relative">
       <h1 className="font-semibold text-3xl text-[#3A3541]">Selecione os relatórios</h1>
 
       <div className="p-2 mt-4 bg-white rounded">
-        <FormControlLabel control={<Checkbox defaultChecked />} label="Selecionar todos" />
+        <FormControlLabel control={<Checkbox defaultChecked
+          onChange={(e) => handleSelectAll(e.target.checked)}
+        />} label="Selecionar todos" />
         <Divider />
         {reportsList && (
           <div className="flex flex-col gap-2">
             {reportsList.map((report) => (
-              <FormControlLabel control={<Checkbox onChange={() => handleSelection(report.descricao)} defaultChecked />} label={report.descricao} />
+              <FormControlLabel control={<Checkbox onChange={() => handleSelection(report.descricao)}
+                checked={selectedReports.find((item) => item == report.descricao) ? true : false} />}
+                label={report.descricao} />
             ))}
           </div>
         )}
