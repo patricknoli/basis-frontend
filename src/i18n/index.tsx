@@ -55,7 +55,16 @@ export const i18n = {
     home_pwa_dialog_text_piece_two: "ou",
     home_pwa_dialog_text_piece_three: "e depois em",
     home_pwa_dialog_text_piece_four: '"Adicionar a Tela inicial" para instalar o aplicativo em seu celular',
-    home_pwa_dialog_close: "Fechar"
+    home_pwa_dialog_close: "Fechar",
+    real_estates_next_step: "Próximo",
+    real_estates_first_step_title: "Selecione os relatórios",
+    real_estates_first_step_select_all: "Selecionar todos",
+    real_estates_second_step_title: "Qual o período?",
+    real_estates_second_step_subtitle: "Selecione o período",
+    real_estates_second_step_shortcut_one: "mês atual",
+    real_estates_second_step_shortcut_two: "últimos 2 mêses",
+    real_estates_second_step_initial_date: "Data inicial",
+    real_estates_second_step_final_date: "Data final",
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -113,6 +122,15 @@ export const i18n = {
     home_pwa_dialog_text_piece_two: "or",
     home_pwa_dialog_text_piece_three: "and then",
     home_pwa_dialog_text_piece_four: '"Add to home screen" to install the app on your cellphone',
-    home_pwa_dialog_close: "Close"
+    home_pwa_dialog_close: "Close",
+    real_estates_next_step: "Next",
+    real_estates_first_step_title: "Select the reports",
+    real_estates_first_step_select_all: "Select all",
+    real_estates_second_step_title: "Which period?",
+    real_estates_second_step_subtitle: "Select the period",
+    real_estates_second_step_shortcut_one: "current month",
+    real_estates_second_step_shortcut_two: "last 2 months",
+    real_estates_second_step_initial_date: "Initial date",
+    real_estates_second_step_final_date: "Final date",
   }
 }

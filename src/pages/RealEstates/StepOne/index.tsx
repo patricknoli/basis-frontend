@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../../services/api"
 import { StepOneProps } from "./types"
 import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { MdArrowForward } from "react-icons/md";
+import { AppContext } from "../../../contexts/AppContext";
+import { i18n } from "../../../i18n";
 
 const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
+  const { lang } = useContext(AppContext);
   const [reportsList, setReportsList] = useState<{ descricao: string }[]>([]);
   const [selectedReports, setSelectedReports] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -62,12 +65,12 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
   return (
     <div className="relative">
-      <h1 className="font-semibold text-3xl text-[#3A3541]">Selecione os relatórios</h1>
+      <h1 className="font-semibold text-3xl text-[#3A3541]">{i18n[lang].real_estates_first_step_title}</h1>
 
       <div className="p-2 mt-4 bg-white rounded">
         <FormControlLabel control={<Checkbox defaultChecked
           onChange={(e) => handleSelectAll(e.target.checked)}
-        />} label="Selecionar todos" />
+        />} label={i18n[lang].real_estates_first_step_select_all} />
         <Divider />
         {reportsList && (
           <div className="flex flex-col gap-2">
@@ -83,7 +86,7 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
       <div className="fixed left-0 bottom-3 w-full px-8 z-50">
         <LoadingButton className="w-full" variant="contained" startIcon={<MdArrowForward />}
           loading={isSubmitting} onClick={() => handleNext()}>
-          Próximo
+          {i18n[lang].real_estates_next_step}
         </LoadingButton>
       </div>
     </div>
