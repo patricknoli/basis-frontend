@@ -6,9 +6,9 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep }) => {
 
   return (
     <div className="my-4 flex items-center justify-between w-full">
-      {steps.map((step) => (
+      {steps.map((step, index) => (
         <>
-          <div>
+          <div key={index}>
             {activeStep >= step ? (
               <TbCircleFilled size={12} color="#5D41D0" />
             ) : (

@@ -4,12 +4,14 @@ import Header from "../../components/Header/Internal";
 import StepOne from "./StepOne";
 import Steps from "../../components/Steps";
 import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
 
 const RealEstates: React.FC = () => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [reports, setReports] = useState<string[]>([]);
   const [initialDate, setInitialDate] = useState<string>("");
   const [finalDate, setFinalDate] = useState<string>("");
+  const [properties, setProperties] = useState<number[]>([]);
 
   return (
     <>
@@ -24,6 +26,11 @@ const RealEstates: React.FC = () => {
 
         {step == 2 && (
           <StepTwo next={() => setStep(3)} saveInitial={setInitialDate} saveFinal={setFinalDate} />
+        )}
+
+        {step == 3 && (
+          <StepThree next={() => setStep(4)} saveProperties={setProperties}
+            initialDate={initialDate} finalDate={finalDate} />
         )}
       </Container>
     </>

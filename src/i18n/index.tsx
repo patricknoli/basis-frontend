@@ -65,6 +65,9 @@ export const i18n = {
     real_estates_second_step_shortcut_two: "últimos 2 mêses",
     real_estates_second_step_initial_date: "Data inicial",
     real_estates_second_step_final_date: "Data final",
+    real_estates_third_step_title: "Escolha os imóveis",
+    real_estates_third_step_selected: "selecionados",
+    real_estates_third_step_input_search: "Buscar imóvel"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -132,5 +135,8 @@ export const i18n = {
     real_estates_second_step_shortcut_two: "last 2 months",
     real_estates_second_step_initial_date: "Initial date",
     real_estates_second_step_final_date: "Final date",
+    real_estates_third_step_title: "Choose the properties",
+    real_estates_third_step_selected: "selected",
+    real_estates_third_step_input_search: "Search realty"
   }
 }
