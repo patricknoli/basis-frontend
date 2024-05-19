@@ -67,7 +67,15 @@ export const i18n = {
     real_estates_second_step_final_date: "Data final",
     real_estates_third_step_title: "Escolha os imóveis",
     real_estates_third_step_selected: "selecionados",
-    real_estates_third_step_input_search: "Buscar imóvel"
+    real_estates_third_step_input_search: "Buscar imóvel",
+    real_estates_fourth_step_title: "Escolha o formato",
+    real_estates_fourth_step_input_file_type_one: "PDF",
+    real_estates_fourth_step_input_file_type_two: "XLS",
+    real_estates_fourth_step_input_email_send: "Enviar por e-mail",
+    real_estates_fourth_step_input_email: "email",
+    real_estates_fourth_step_view_button: "Visualizar",
+    real_estates_fourth_step_download_button: "Baixar",
+    real_estates_fourth_step_email_button: "Enviar"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -137,6 +145,14 @@ export const i18n = {
     real_estates_second_step_final_date: "Final date",
     real_estates_third_step_title: "Choose the properties",
     real_estates_third_step_selected: "selected",
-    real_estates_third_step_input_search: "Search realty"
+    real_estates_third_step_input_search: "Search realty",
+    real_estates_fourth_step_title: "Choose the format",
+    real_estates_fourth_step_input_file_type_one: "PDF",
+    real_estates_fourth_step_input_file_type_two: "XLS",
+    real_estates_fourth_step_input_email_send: "Send via email",
+    real_estates_fourth_step_input_email: "email",
+    real_estates_fourth_step_view_button: "View",
+    real_estates_fourth_step_download_button: "Download",
+    real_estates_fourth_step_email_button: "Send"
   }
 }

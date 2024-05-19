@@ -5,6 +5,7 @@ import StepOne from "./StepOne";
 import Steps from "../../components/Steps";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
+import StepFour from "./StepFour";
 
 const RealEstates: React.FC = () => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
@@ -31,6 +32,10 @@ const RealEstates: React.FC = () => {
         {step == 3 && (
           <StepThree next={() => setStep(4)} saveProperties={setProperties}
             initialDate={initialDate} finalDate={finalDate} />
+        )}
+
+        {step == 4 && (
+          <StepFour properties={properties} reports={reports} />
         )}
       </Container>
     </>
