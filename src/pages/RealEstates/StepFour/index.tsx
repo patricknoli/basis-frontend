@@ -26,7 +26,8 @@ const StepFour: React.FC<StepFourProps> = () => {
     setSuccessMessage(emailSend && email ? "Email enviado com sucesso!" : "Relatórios baixados com sucesso!");
     setTimeout(() => {
       setIsSubmitting(false);
-      setOpenDialog(true);
+      type == "download" && setOpenDialog(true);
+      type == "view" && window.open("http://reports.basissistemas.com.br/63/immobilenet/reports/temp/contacorrente1713215202923.pdf", "_blank");
     }, 1500);
   }
 
