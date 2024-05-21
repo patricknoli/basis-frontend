@@ -1,13 +1,12 @@
 import { ButtonGroup } from "@mui/material";
-import logo from "../../assets/mock-logo.png";
 import { MdFileDownload, MdFolder, MdHelp, MdList } from "react-icons/md";
 import NavItem from "./NavItem";
 
 const Sidebar: React.FC = () => {
   return (
-    <nav className="hidden md:block w-[300px] h-full shadow-md fixed left-0 top-0">
-      <div className="p-6 flex bg-white justify-center items-center gap-3">
-        <img src={logo} alt="" className="w-10" />
+    <nav className="hidden md:block w-[300px] h-full shadow-md z-50 fixed left-0 top-0">
+      <div className="px-6 py-2 flex bg-white justify-center items-center gap-3">
+        <img src={`https://images.locacaonet.basissistemas.com.br/5/logo.jpg`} alt="" className="w-[70px]" />
         <h1 className="font-extrabold text-2xl">Logo Empresa</h1>
       </div>
       <div className="p-6 bg-[#F5F6FA] flex flex-col jusitify-center">

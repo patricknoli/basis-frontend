@@ -41,45 +41,49 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveInitial, saveFinal }) => {
     <>
       <h1 className="font-semibold text-3xl text-[#3A3541]">{i18n[lang].real_estates_second_step_title}</h1>
 
-      <div className="p-4 mt-4 bg-white rounded flex flex-col gap-4">
-        <p className="font-medium text-base text-[#181818]">{i18n[lang].real_estates_second_step_subtitle}</p>
+      <div className="p-4 mt-4 bg-white rounded">
+        <p className="hidden md:block font-medium text-base text-[#181818] mb-4">{i18n[lang].real_estates_second_step_subtitle}</p>
 
-        <div className="flex gap-2">
-          <button className={`rounded 
-          ${dateShortCut == "current" ? 'border border-black bg-[#F0F0F0]' : 'bg-[#F7F7F7]'} 
-          text-center font-semibold text-[#211F2A] text-sm p-2 basis-1/2`}
-            onClick={() => setDateShortcut("current")}>
-            {i18n[lang].real_estates_second_step_shortcut_one}
-          </button>
+        <div className="flex flex-col gap-4 md:w-[50%]">
+          <div className="flex gap-2">
+            <button className={`rounded 
+            ${dateShortCut == "current" ? 'border border-black bg-[#F0F0F0]' : 'bg-[#F7F7F7]'} 
+            text-center font-semibold text-[#211F2A] text-sm p-2 basis-1/2`}
+              onClick={() => setDateShortcut("current")}>
+              {i18n[lang].real_estates_second_step_shortcut_one}
+            </button>
 
-          <button className={`rounded 
-          ${dateShortCut == "last-2" ? 'border border-black bg-[#F0F0F0]' : 'bg-[#F7F7F7]'} 
-          text-center font-semibold text-[#211F2A] text-sm p-2 basis-1/2`}
-            onClick={() => setDateShortcut("last-2")}>
-            {i18n[lang].real_estates_second_step_shortcut_two}
-          </button>
+            <button className={`rounded 
+            ${dateShortCut == "last-2" ? 'border border-black bg-[#F0F0F0]' : 'bg-[#F7F7F7]'} 
+            text-center font-semibold text-[#211F2A] text-sm p-2 basis-1/2`}
+              onClick={() => setDateShortcut("last-2")}>
+              {i18n[lang].real_estates_second_step_shortcut_two}
+            </button>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4">
+            <TextField
+              type="date"
+              variant="outlined"
+              label={i18n[lang].real_estates_second_step_initial_date}
+              className="w-full"
+              value={initialDate}
+              onChange={(e) => { setInitialDate(e.target.value); setDateShortcut("none") }}
+            />
+            <TextField
+              type="date"
+              variant="outlined"
+              label={i18n[lang].real_estates_second_step_final_date}
+              className="w-full"
+              value={finalDate}
+              onChange={(e) => { setFinalDate(e.target.value); setDateShortcut("none") }}
+            />
+          </div>
         </div>
-
-        <TextField
-          type="date"
-          variant="outlined"
-          label={i18n[lang].real_estates_second_step_initial_date}
-          className="w-full"
-          value={initialDate}
-          onChange={(e) => { setInitialDate(e.target.value); setDateShortcut("none") }}
-        />
-        <TextField
-          type="date"
-          variant="outlined"
-          label={i18n[lang].real_estates_second_step_final_date}
-          className="w-full"
-          value={finalDate}
-          onChange={(e) => { setFinalDate(e.target.value); setDateShortcut("none") }}
-        />
       </div>
 
-      <div className="fixed left-0 bottom-3 w-full px-8">
-        <LoadingButton className="w-full" variant="contained" startIcon={<MdArrowForward />}
+      <div className="fixed left-0 bottom-3 w-full px-8 md:w-auto md:left-auto md:right-0">
+        <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
           loading={isSubmitting} onClick={() => handleNext()}>
           {i18n[lang].real_estates_next_step}
         </LoadingButton>

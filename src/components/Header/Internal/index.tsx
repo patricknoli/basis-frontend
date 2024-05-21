@@ -9,7 +9,7 @@ const Header: React.FC<{ home?: boolean }> = ({ home }) => {
 
   return (
     <>
-      <div className="py-2 px-4 w-full z-50 fixed top-0 left-0 bg-white shadow-md flex items-center">
+      <div className="py-2 px-4 w-full z-40 fixed top-0 left-0 bg-white shadow-md flex items-center">
         {home && (
           <Link to="/home" className="md:hidden">
             <CiHome size={24} />

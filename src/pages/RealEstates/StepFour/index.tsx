@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import { i18n } from "../../../i18n"
 import { StepFourProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext";
-import { Checkbox, Divider, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { Button, Checkbox, Dialog, Divider, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import { validateEmail } from "../../../support/validateEmail";
 import { LoadingButton } from "@mui/lab";
 import { MdArrowForward } from "react-icons/md";
+import { BsCalendarCheck } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const StepFour: React.FC<StepFourProps> = () => {
   const { user, lang } = useContext(AppContext);
@@ -15,6 +17,18 @@ const StepFour: React.FC<StepFourProps> = () => {
   const [email, setEmail] = useState<string>("");
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const navigate = useNavigate();
+
+  async function extractReport(type: "view" | "download") {
+    setIsSubmitting(true);
+    setSuccessMessage(emailSend && email ? "Email enviado com sucesso!" : "Relatórios baixados com sucesso!");
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setOpenDialog(true);
+    }, 1500);
+  }
 
   return (
     <>
@@ -47,15 +61,15 @@ const StepFour: React.FC<StepFourProps> = () => {
         )}
       </div>
 
-      <div className="fixed left-0 bottom-3 w-full px-8 z-50 flex flex-col gap-2">
+      <div className="fixed left-0 bottom-3 w-full px-8 z-50 flex flex-col gap-2 md:flex-row-reverse md:w-auto md:left-auto md:right-0">
         {fileType && (
-          <LoadingButton className="w-full" variant="contained" startIcon={<MdArrowForward />}
-            loading={isSubmitting} onClick={() => { }}>
+          <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
+            loading={isSubmitting} onClick={() => extractReport("view")}>
             {i18n[lang].real_estates_fourth_step_view_button}
           </LoadingButton>
         )}
-        <LoadingButton className="w-full" variant="text" startIcon={<MdArrowForward />}
-          loading={isSubmitting} onClick={() => { }}>
+        <LoadingButton className="w-full md:w-[300px]" variant="text" startIcon={<MdArrowForward />}
+          loading={isSubmitting} onClick={() => extractReport("download")}>
           {emailSend ? (
             <>
               {i18n[lang].real_estates_fourth_step_email_button}
@@ -65,9 +79,24 @@ const StepFour: React.FC<StepFourProps> = () => {
               {i18n[lang].real_estates_fourth_step_download_button}
             </>
           )}
-
         </LoadingButton>
       </div>
+
+      <Dialog open={openDialog}>
+        <div className="p-10 flex flex-col gap-3 items-center">
+          <button className="text-2xl absolute top-2 right-6" onClick={() => setOpenDialog(false)}>
+            &times;
+          </button>
+
+          <div className="w-[70px] h-[70px] rounded-full flex justify-center items-center bg-[#ECF2FF]">
+            <BsCalendarCheck size={20} />
+          </div>
+          <p className="font-bold text-2xl text-center">
+            {successMessage}
+          </p>
+          <Button variant="contained" className="!py-2" onClick={() => navigate("/real-estates")}>Ir para a tela inicial</Button>
+        </div>
+      </Dialog>
     </>
   )
 }

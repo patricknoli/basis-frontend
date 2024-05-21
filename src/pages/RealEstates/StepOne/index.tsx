@@ -65,15 +65,16 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
   return (
     <div className="relative">
-      <h1 className="font-semibold text-3xl text-[#3A3541]">{i18n[lang].real_estates_first_step_title}</h1>
+      <h1 className="md:hidden font-semibold text-3xl text-[#3A3541]">{i18n[lang].real_estates_first_step_title}</h1>
 
       <div className="p-2 mt-4 bg-white rounded">
+        <h1 className="hidden md:block text-base text-[#181818] font-medium">{i18n[lang].real_estates_first_step_subtitle}</h1>
         <FormControlLabel control={<Checkbox defaultChecked
           onChange={(e) => handleSelectAll(e.target.checked)}
         />} label={i18n[lang].real_estates_first_step_select_all} />
         <Divider />
         {reportsList && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:mt-4">
             {reportsList.map((report, index) => (
               <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report.descricao)}
                 checked={selectedReports.find((item) => item == report.descricao) ? true : false} />}
@@ -83,8 +84,8 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
         )}
       </div>
 
-      <div className="fixed left-0 bottom-3 w-full px-8 z-50">
-        <LoadingButton className="w-full" variant="contained" startIcon={<MdArrowForward />}
+      <div className="fixed left-0 bottom-3 w-full px-8 z-50 md:w-auto md:left-auto md:right-0">
+        <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
           loading={isSubmitting} onClick={() => handleNext()}>
           {i18n[lang].real_estates_next_step}
         </LoadingButton>
