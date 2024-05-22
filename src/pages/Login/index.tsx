@@ -34,10 +34,9 @@ const Login: React.FC = () => {
         }
       });
       if (response.status == 200) {
-        updateUser(response.data);
         setTimeout(() => {
           setIsSubmitting(false);
-          navigate(isMobile ? '/home' : '/real-estates');
+          updateUser(response.data);
         }, 1500)
       }
 

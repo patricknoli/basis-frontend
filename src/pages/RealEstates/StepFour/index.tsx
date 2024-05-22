@@ -7,7 +7,7 @@ import { validateEmail } from "../../../support/validateEmail";
 import { LoadingButton } from "@mui/lab";
 import { MdArrowForward } from "react-icons/md";
 import { BsCalendarCheck } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { redirect, redirectDocument, useNavigate } from "react-router-dom";
 
 const StepFour: React.FC<StepFourProps> = () => {
   const { user, lang } = useContext(AppContext);
@@ -19,7 +19,11 @@ const StepFour: React.FC<StepFourProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
-  const navigate = useNavigate();
+
+  function handleGoHome() {
+    console.log(window.innerWidth);
+    window.innerWidth > 768 ? window.location.reload() : redirect("/home")
+  }
 
   async function extractReport(type: "view" | "download") {
     setIsSubmitting(true);
@@ -95,7 +99,7 @@ const StepFour: React.FC<StepFourProps> = () => {
           <p className="font-bold text-2xl text-center">
             {successMessage}
           </p>
-          <Button variant="contained" className="!py-2" onClick={() => navigate("/real-estates")}>Ir para a tela inicial</Button>
+          <Button variant="contained" className="!py-2" onClick={() => handleGoHome()}>Ir para a tela inicial</Button>
         </div>
       </Dialog>
     </>

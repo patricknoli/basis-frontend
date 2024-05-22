@@ -13,6 +13,7 @@ import { MdMoreVert } from "react-icons/md"
 const Home: React.FC = () => {
   const { userName, lang } = useContext(AppContext);
   const [openInstall, setOpenInstall] = useState<boolean>(false);
+  const iOSIsInstalled = window.matchMedia('(display-mode: standalone)').matches;
 
   return (
     <Container>
@@ -40,14 +41,16 @@ const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="mt-5">
-          <p className="text-xs text-[#A1A7C4]">{i18n[lang].home_other_nav_cta}</p>
-          <button className="p-4 w-full mt-2 flex gap-2 items-center rounded shadow-md"
-            onClick={() => setOpenInstall(true)}>
-            <BiHelpCircle size={20} color="#7E84A3" />
-            <span className="text-sm">{i18n[lang].home_nav_pwa}</span>
-          </button>
-        </div>
+        {!iOSIsInstalled && (
+          <div className="mt-5">
+            <p className="text-xs text-[#A1A7C4]">{i18n[lang].home_other_nav_cta}</p>
+            <button className="p-4 w-full mt-2 flex gap-2 items-center rounded shadow-md"
+              onClick={() => setOpenInstall(true)}>
+              <BiHelpCircle size={20} color="#7E84A3" />
+              <span className="text-sm">{i18n[lang].home_nav_pwa}</span>
+            </button>
+          </div>
+        )}
       </div>
 
       <Dialog open={openInstall} onClose={() => setOpenInstall(false)}>
