@@ -10,8 +10,8 @@ import { i18n } from "../../i18n";
 import { AppContext } from "../../contexts/AppContext";
 
 const RealEstates: React.FC = () => {
-  const {lang} = useContext(AppContext);
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const { lang } = useContext(AppContext);
+  const [step, setStep] = useState<number>(1);
   const [reports, setReports] = useState<string[]>([]);
   const [initialDate, setInitialDate] = useState<string>("");
   const [finalDate, setFinalDate] = useState<string>("");
@@ -26,13 +26,14 @@ const RealEstates: React.FC = () => {
   return (
     <>
       <Container>
-        <Header home />
+        <Header home={step == 1}
+          back={step > 1} backAction={() => setStep(step - 1)} />
 
         <h1 className="hidden md:block text-3xl text-[#3A3541] font-semibold mb-10">Imóveis</h1>
 
         <Steps steps={[1, 2, 3, 4]}
-        stepsLabels={stepsLabels}
-        activeStep={step} />
+          stepsLabels={stepsLabels}
+          activeStep={step} />
 
         {step == 1 && (
           <StepOne saveReports={setReports} next={() => setStep(2)} />

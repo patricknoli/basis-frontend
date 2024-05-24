@@ -3,8 +3,9 @@ import { useContext } from "react";
 import { AppContext } from "../../../contexts/AppContext";
 import { Link } from "react-router-dom";
 import { CiHome } from "react-icons/ci";
+import { BiChevronLeft } from "react-icons/bi";
 
-const Header: React.FC<{ home?: boolean }> = ({ home }) => {
+const Header: React.FC<{ home?: boolean; back?: boolean; backAction?: () => void }> = ({ home, back, backAction }) => {
   const { userName } = useContext(AppContext);
 
   return (
@@ -14,6 +15,11 @@ const Header: React.FC<{ home?: boolean }> = ({ home }) => {
           <Link to="/home" className="md:hidden">
             <CiHome size={24} />
           </Link>
+        )}
+        {back && backAction && (
+          <button onClick={() => backAction()}>
+            <BiChevronLeft size={24} />
+          </button>
         )}
         <Avatar className="ml-auto">{userName?.slice(0, 1)}</Avatar>
       </div>
