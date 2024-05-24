@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { api } from "../../../services/api"
 import { StepOneProps } from "./types"
-import { Checkbox, Divider, FormControlLabel } from "@mui/material";
+import { Checkbox, Divider, FormControlLabel, InputAdornment, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { MdArrowForward } from "react-icons/md";
+import { MdArrowForward, MdClose, MdSearch } from "react-icons/md";
 import { AppContext } from "../../../contexts/AppContext";
 import { i18n } from "../../../i18n";
 
@@ -12,6 +12,9 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
   const [reportsList, setReportsList] = useState<{ descricao: string }[]>([]);
   const [selectedReports, setSelectedReports] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [searchActive, setSearchActive] = useState<boolean>(true);
+  const [search, setSearch] = useState<string>("");
+  const [showSearch, setShowSearch] = useState<boolean>(false);
 
   function handleSelection(selected: string) {
     if (selectedReports.find((item) => item == selected)) {
@@ -39,6 +42,9 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
       if (response.status == 200) {
         setReportsList(response.data);
+        if (response.data.length <= 10) {
+          setSearchActive(false);
+        }
       }
     } catch (error) { }
   }
@@ -67,15 +73,57 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
     <div className="relative">
       <h1 className="md:hidden font-semibold text-3xl text-[#3A3541]">{i18n[lang].real_estates_first_step_title}</h1>
 
-      <div className="p-2 mt-4 bg-white rounded">
-        <h1 className="hidden md:block text-base text-[#181818] font-medium">{i18n[lang].real_estates_first_step_subtitle}</h1>
-        <FormControlLabel control={<Checkbox defaultChecked
-          onChange={(e) => handleSelectAll(e.target.checked)}
-        />} label={i18n[lang].real_estates_first_step_select_all} />
+      <div className="p-2 mt-4 bg-white rounded relative">
+        <div className="flex">
+          <div className="">
+            <h1 className="hidden md:inline-flex text-base text-[#181818] font-medium">{i18n[lang].real_estates_first_step_subtitle}</h1>
+
+            {searchActive && (
+              <>
+                <button className={`${showSearch && 'hidden'} absolute top-0 right-0 mt-4 mr-3 md:hidden`}
+                  onClick={() => setShowSearch(true)}>
+                  <MdSearch size={24} />
+                </button>
+              </>
+            )}
+
+            <div className={`${showSearch ? 'hidden' : 'block'} w-full`}>
+              <FormControlLabel className={`w-full`} control={<Checkbox defaultChecked
+                onChange={(e) => handleSelectAll(e.target.checked)}
+              />} label={i18n[lang].real_estates_first_step_select_all} />
+            </div>
+          </div>
+
+
+          {searchActive && (
+            <div className={`${!showSearch && 'hidden'} md:inline-flex md:w-[216px] md:ml-auto`}>
+              <TextField
+                className="w-full"
+                label={i18n[lang].real_estates_first_step_search}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <MdSearch />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <div className="md:hidden">
+                      <InputAdornment position="end" onClick={() => { setShowSearch(false); setSearch("") }}>
+                        <MdClose />
+                      </InputAdornment>
+                    </div>
+                  )
+                }}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+
         <Divider />
         {reportsList && (
           <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:mt-4">
-            {reportsList.map((report, index) => (
+            {reportsList.map((report, index) => report.descricao.toLowerCase().includes(search.toLowerCase()) && (
               <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report.descricao)}
                 checked={selectedReports.find((item) => item == report.descricao) ? true : false} />}
                 label={report.descricao} />

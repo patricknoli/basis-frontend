@@ -19,10 +19,10 @@ const StepFour: React.FC<StepFourProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const navigate = useNavigate();
 
   function handleGoHome() {
-    console.log(window.innerWidth);
-    window.innerWidth > 768 ? window.location.reload() : redirect("/home")
+    window.innerWidth > 768 ? window.location.reload() : navigate("/home")
   }
 
   async function extractReport(type: "view" | "download") {
