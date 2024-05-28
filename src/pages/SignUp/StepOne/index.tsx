@@ -4,11 +4,11 @@ import { StepOneProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext"
 import { FieldValues, useForm } from "react-hook-form"
 import { InputAdornment, Snackbar, TextField } from "@mui/material"
-import { MdArrowForward, MdEmail } from "react-icons/md"
+import { MdEmail } from "react-icons/md"
 import { validateEmail } from "../../../support/validateEmail"
-import { LoadingButton } from "@mui/lab"
 import { api } from "../../../services/api"
 import { Link } from "react-router-dom"
+import Button from "../../../components/Button"
 
 const StepOne: React.FC<StepOneProps> = ({ next, saveEmail }) => {
   const { lang } = useContext(AppContext);
@@ -73,17 +73,16 @@ const StepOne: React.FC<StepOneProps> = ({ next, saveEmail }) => {
           />
         </div>
 
-        <LoadingButton variant="contained" startIcon={<MdArrowForward />}
-          loading={isSubmitting} type="submit">
+        <Button loading={isSubmitting} forwardIcon submit>
           Próximo
-        </LoadingButton>
+        </Button>
       </form>
 
       <hr />
 
       <div className="flex items-center justify-between mt-6">
-        <span className="text-xs md:text-base text-zinc-500 font-semibold">{i18n[lang].sign_up_first_step_login_cta}</span>
-        <Link className="text-xs md:text-base font-semibold" to="/login">
+        <span className="text-xs md:text-sm text-zinc-500">{i18n[lang].sign_up_first_step_login_cta}</span>
+        <Link className="text-xs md:text-sm font-semibold" to="/">
           {i18n[lang].sign_up_first_step_login_link}
         </Link>
       </div>

@@ -3,10 +3,9 @@ import { i18n } from "../../../i18n";
 import { AppContext } from "../../../contexts/AppContext";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { Snackbar } from "@mui/material";
-import { MdArrowForward } from "react-icons/md";
 import { StepTwoProps } from "./types";
-import { LoadingButton } from "@mui/lab";
 import { api } from "../../../services/api";
+import Button from "../../../components/Button";
 
 const StepTwo: React.FC<StepTwoProps> = ({ next, email }) => {
   const { lang } = useContext(AppContext);
@@ -52,12 +51,9 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, email }) => {
       <MuiOtpInput className="my-6" length={6}
         onChange={(value) => setCode(value)} value={code} />
 
-      <LoadingButton onClick={() => validateCode()}
-        loading={loading}
-        variant="contained" startIcon={<MdArrowForward />}
-        className="w-full">
+      <Button className="w-full" loading={loading} forwardIcon action={() => validateCode()}>
         Próximo
-      </LoadingButton>
+      </Button>
 
       <Snackbar
         open={openSnack}

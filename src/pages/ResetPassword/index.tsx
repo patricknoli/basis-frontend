@@ -7,9 +7,9 @@ import StepFour from "./StepFour";
 import Hero from "../../components/Hero";
 
 const ResetPassword: React.FC = () => {
-  const [ step, setStep ] = useState<1 | 2 | 3 | 4>(1);
-  const [ code, setCode ] = useState<string>("");
-  const [ document, setDocument ] = useState<string>("");
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [code, setCode] = useState<string>("");
+  const [document, setDocument] = useState<string>("");
 
   return (
     <>
@@ -25,14 +25,14 @@ const ResetPassword: React.FC = () => {
             {step == 1 && (
               <StepOne saveDocument={setDocument} next={() => setStep(2)} />
             )}
-            
+
             {step == 2 && (
               <StepTwo saveCode={setCode} next={() => setStep(3)} />
             )}
 
             {step == 3 && (
-              <StepThree code={code} document={document} 
-              next={() => setStep(4)}/>
+              <StepThree code={code} document={document}
+                next={() => setStep(4)} />
             )}
 
             {step == 4 && (

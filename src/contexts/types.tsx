@@ -11,6 +11,7 @@ export type AppContextType = {
   user: UserType[] | null;
   userName: string | undefined;
   profile: "owner" | "tenant" | null;
+  theme: ThemeType;
 }
 
 export type UserType = {
@@ -24,8 +25,21 @@ export type AccountHolderType = {
   tipocorrentista: "P" | "L";
 }
 
+export type ThemeType = {
+  primary: string;
+  secondary: string;
+  error?: string;
+  warning?: string;
+  info?: string;
+  success?: string;
+}
+
 export const AppContextInitialValues = {
   lang: "pt-br",
   user: [],
-  authenticated: false
+  authenticated: false,
+  theme: {
+    primary: "#2196F3",
+    secondary: "#1ff3da"
+  }
 }

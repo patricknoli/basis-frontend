@@ -3,20 +3,20 @@ import { i18n } from "../../../i18n"
 import { AppContext } from "../../../contexts/AppContext";
 import { InputAdornment, Snackbar, TextField } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
-import { LoadingButton } from "@mui/lab";
-import { MdArrowForward, MdPerson } from "react-icons/md";
+import { MdPerson } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { withMask } from "use-mask-input";
 import { api } from "../../../services/api";
 import { StepOneProps } from "./types";
 import { validateDocument } from "../../../support/validateDocument";
+import Button from "../../../components/Button";
 
-const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
+const StepOne: React.FC<StepOneProps> = ({ next, saveDocument }) => {
   const { lang } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
-  const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
-  const [ openSnack, setOpenSnack ] = useState<boolean>(false);
-  const [ invalidDocument, setInvalidDocument ] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [invalidDocument, setInvalidDocument] = useState<boolean>(false);
 
   async function requestReset(fields: FieldValues) {
     setIsSubmitting(true);
@@ -27,7 +27,7 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
           "idBanco": 5
         }
       });
-      if(response.status == 200) {
+      if (response.status == 200) {
         next();
         saveDocument(fields.document);
       } else {
@@ -36,7 +36,7 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
         }, 1500);
       }
       setIsSubmitting(false);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
       setTimeout(() => {
         setIsSubmitting(false);
@@ -55,24 +55,23 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
           <TextField {...register('document', {
             onBlur: () => setInvalidDocument(!validateDocument(watch('document')))
           })}
-          error={invalidDocument}
-          helperText={invalidDocument && i18n[lang].global_invalid_document_error}
-          label={i18n[lang].reset_pass_input_email} variant="outlined"
-          InputProps={{ 
-            startAdornment: (
-              <InputAdornment position="start">
-                <MdPerson />
-              </InputAdornment>
-            ),
-          }}
-          inputProps={<input ref={withMask('cpf')} />}
+            error={invalidDocument}
+            helperText={invalidDocument && i18n[lang].global_invalid_document_error}
+            label={i18n[lang].reset_pass_input_email} variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MdPerson />
+                </InputAdornment>
+              ),
+            }}
+            inputProps={<input ref={withMask('cpf')} />}
           />
         </div>
 
-        <LoadingButton variant="contained" startIcon={<MdArrowForward />}
-        loading={isSubmitting} type="submit"> 
+        <Button forwardIcon loading={isSubmitting} submit>
           Próximo
-        </LoadingButton>
+        </Button>
       </form>
 
       <hr />
@@ -85,10 +84,10 @@ const StepOne: React.FC<StepOneProps> = ({next, saveDocument}) => {
       </div>
 
       <Snackbar
-      open={openSnack}
-      autoHideDuration={3000}
-      onClose={() => setOpenSnack(false)}
-      message="Erro ao solicitar a recuperação"
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnack(false)}
+        message="Erro ao solicitar a recuperação"
       />
     </>
   )

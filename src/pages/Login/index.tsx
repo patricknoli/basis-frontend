@@ -2,16 +2,16 @@ import { useContext, useState } from "react"
 import { i18n } from "../../i18n"
 import { AppContext } from "../../contexts/AppContext"
 import Header from "../../components/Header/External";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { InputAdornment, Snackbar, TextField } from "@mui/material";
-import { BiChevronRight, BiLock, BiUser } from "react-icons/bi";
+import { BiLock, BiUser } from "react-icons/bi";
 import { FieldValues, useForm } from "react-hook-form";
 import { withMask } from "use-mask-input";
-import { LoadingButton } from "@mui/lab";
 import { api } from "../../services/api";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { validateDocument } from "../../support/validateDocument";
 import Hero from "../../components/Hero";
+import Button from "../../components/Button";
 
 const Login: React.FC = () => {
   const { lang, updateUser } = useContext(AppContext);
@@ -20,8 +20,6 @@ const Login: React.FC = () => {
   const [openSnack, setOpenSnak] = useState<boolean>(false);
   const [invalidDocument, setInvalidDocument] = useState<boolean>(false);
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const isMobile = window.innerWidth <= 768;
 
   async function loginUser(fields: FieldValues) {
     setIsSubmitting(true);
@@ -104,17 +102,16 @@ const Login: React.FC = () => {
                 {i18n[lang].login_forgot_password}
               </Link>
 
-              <LoadingButton variant="contained" endIcon={<BiChevronRight />}
-                loading={isSubmitting} type="submit">
+              <Button forwardIcon loading={isSubmitting} submit>
                 Login
-              </LoadingButton>
+              </Button>
             </form>
 
             <hr />
 
             <div className="flex items-center justify-between mt-6">
-              <span className="text-xs md:text-base text-zinc-500 font-semibold">{i18n[lang].login_create_account_cta}</span>
-              <Link className="text-xs md:text-base font-semibold" to="/sign-up">
+              <span className="text-xs md:text-sm text-zinc-500">{i18n[lang].login_create_account_cta}</span>
+              <Link className="text-xs md:text-sm font-semibold" to="/sign-up">
                 {i18n[lang].login_create_account_link}
               </Link>
             </div>

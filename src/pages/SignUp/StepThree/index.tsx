@@ -3,16 +3,16 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../../contexts/AppContext";
 import { i18n } from "../../../i18n";
 import { validateDocument } from "../../../support/validateDocument";
-import { MdArrowForward, MdPerson } from "react-icons/md";
+import { MdPerson } from "react-icons/md";
 import { withMask } from "use-mask-input";
-import { LoadingButton } from "@mui/lab";
 import { StepThreeProps } from "./types";
+import Button from "../../../components/Button";
 
-const StepThree: React.FC<StepThreeProps> = ({next, saveDocument}) => {
+const StepThree: React.FC<StepThreeProps> = ({ next, saveDocument }) => {
   const { lang } = useContext(AppContext);
-  const [ invalidDocument, setInvalidDocument ] = useState<boolean>(false);
-  const [ document, setDocument ] = useState<string>("");
-  const [ loading, setLoading ] = useState<boolean>(false);
+  const [invalidDocument, setInvalidDocument] = useState<boolean>(false);
+  const [document, setDocument] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handleNext() {
     setLoading(true);
@@ -34,7 +34,7 @@ const StepThree: React.FC<StepThreeProps> = ({next, saveDocument}) => {
           error={invalidDocument}
           helperText={invalidDocument && i18n[lang].global_invalid_document_error}
           label={i18n[lang].sign_up_third_step_input_document} variant="outlined"
-          InputProps={{ 
+          InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <MdPerson />
@@ -42,14 +42,12 @@ const StepThree: React.FC<StepThreeProps> = ({next, saveDocument}) => {
             ),
           }}
           inputProps={<input ref={withMask('cpf')} />}
-          />
+        />
       </div>
 
-      <LoadingButton variant="contained" startIcon={<MdArrowForward />}
-      onClick={() => handleNext()} className="w-full"
-      loading={loading}> 
+      <Button loading={loading} forwardIcon action={() => handleNext()} className="w-full">
         Próximo
-      </LoadingButton>
+      </Button>
     </>
   )
 }

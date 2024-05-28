@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { AppContextInitialValues, AppContextType, AppProviderProps, UserType } from "./types";
+import { AppContextInitialValues, AppContextType, AppProviderProps, ThemeType, UserType } from "./types";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -12,6 +12,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [profile, setProfile] = useState<"owner" | "tenant" | null>(null);
   const [userName, setUserName] = useState<string | undefined>("");
+  const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
 
   function updateUser(auth_user: UserType[]) {
     setUser(auth_user);
@@ -46,7 +47,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       user,
       authenticated,
       profile,
-      userName
+      userName,
+      theme
     }}>
       {children}
     </AppContext.Provider>

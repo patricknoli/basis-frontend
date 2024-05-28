@@ -4,26 +4,25 @@ import { AppContext } from "../../../contexts/AppContext";
 import { FieldValues, useForm } from "react-hook-form";
 import { InputAdornment, Snackbar, TextField } from "@mui/material";
 import { BiLock } from "react-icons/bi";
-import { LoadingButton } from "@mui/lab";
-import { MdArrowForward } from "react-icons/md";
 import { api } from "../../../services/api";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { StepThreeProps } from "./types";
 import PasswordStrengthBar from "react-password-strength-bar";
+import Button from "../../../components/Button";
 
-const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
+const StepThree: React.FC<StepThreeProps> = ({ code, document, next }) => {
   const { lang } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
-  const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
-  const [ openSnack, setOpenSnack ] = useState<boolean>(false);
-  const [ snackText, setSnackText ] = useState<string>("");
-  const [ passwordShow, setPasswordShow ] = useState<boolean>(false);
-  const [ confirmPasswordShow, setConfirmPasswordShow ] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [snackText, setSnackText] = useState<string>("");
+  const [passwordShow, setPasswordShow] = useState<boolean>(false);
+  const [confirmPasswordShow, setConfirmPasswordShow] = useState<boolean>(false);
 
   async function createNewPassword(fields: FieldValues) {
     setIsSubmitting(true);
     try {
-      if(fields.password != fields.password_confirm) {
+      if (fields.password != fields.password_confirm) {
         setSnackText("As senhas não conferem");
         setOpenSnack(true);
         setIsSubmitting(false);
@@ -39,7 +38,7 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
         }
       })
 
-      if(response.status == 200) {
+      if (response.status == 200) {
         next();
       } else {
         setSnackText("Erro ao atualizar a senha");
@@ -48,7 +47,7 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
         }, 1500);
       }
       setIsSubmitting(false);
-    } catch(error) {
+    } catch (error) {
       setSnackText("Erro ao atualizar a senha");
       setTimeout(() => {
         setOpenSnack(true);
@@ -63,63 +62,62 @@ const StepThree: React.FC<StepThreeProps> = ({code, document, next}) => {
       <p className="mt-3 text-xs md:text-base w-[55%]">{i18n[lang].reset_pass_third_step_subtitle}</p>
 
       <form onSubmit={handleSubmit(createNewPassword)} className="flex flex-col gap-3 my-6">
-        <TextField type={passwordShow ? "text" : "password"} {...register('password')} 
-        label={i18n[lang].reset_pass_third_step_input_password} variant="outlined"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <BiLock />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment className="cursor-pointer" position="end"
-            onClick={() => setPasswordShow(!passwordShow)}>
-              {!passwordShow ? (
-                <IoMdEye />
-              ) : (
-                <IoMdEyeOff />
-              )}
-            </InputAdornment>
-          )
-        }}
+        <TextField type={passwordShow ? "text" : "password"} {...register('password')}
+          label={i18n[lang].reset_pass_third_step_input_password} variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <BiLock />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment className="cursor-pointer" position="end"
+                onClick={() => setPasswordShow(!passwordShow)}>
+                {!passwordShow ? (
+                  <IoMdEye />
+                ) : (
+                  <IoMdEyeOff />
+                )}
+              </InputAdornment>
+            )
+          }}
         />
-        <PasswordStrengthBar password={watch('password')} 
-        scoreWords={i18n[lang].global_password_strength_words}
-        shortScoreWord={i18n[lang].global_password_too_short}
-         />
-
-        <TextField type={confirmPasswordShow ? "text" : "password"} {...register('password_confirm')} 
-        label={i18n[lang].reset_pass_third_step_input_password_confirm} variant="outlined"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <BiLock />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment className="cursor-pointer" position="end"
-            onClick={() => setConfirmPasswordShow(!confirmPasswordShow)}>
-              {!confirmPasswordShow ? (
-                <IoMdEye />
-              ) : (
-                <IoMdEyeOff />
-              )}
-            </InputAdornment>
-          )
-        }}
+        <PasswordStrengthBar password={watch('password')}
+          scoreWords={i18n[lang].global_password_strength_words}
+          shortScoreWord={i18n[lang].global_password_too_short}
         />
 
-        <LoadingButton variant="contained" startIcon={<MdArrowForward />}
-        loading={isSubmitting} type="submit"> 
+        <TextField type={confirmPasswordShow ? "text" : "password"} {...register('password_confirm')}
+          label={i18n[lang].reset_pass_third_step_input_password_confirm} variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <BiLock />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment className="cursor-pointer" position="end"
+                onClick={() => setConfirmPasswordShow(!confirmPasswordShow)}>
+                {!confirmPasswordShow ? (
+                  <IoMdEye />
+                ) : (
+                  <IoMdEyeOff />
+                )}
+              </InputAdornment>
+            )
+          }}
+        />
+
+        <Button forwardIcon loading={isSubmitting} submit>
           Próximo
-        </LoadingButton>
+        </Button>
       </form>
 
       <Snackbar
-      open={openSnack}
-      autoHideDuration={3000}
-      onClose={() => setOpenSnack(false)}
-      message={snackText}
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnack(false)}
+        message={snackText}
       />
     </>
   )

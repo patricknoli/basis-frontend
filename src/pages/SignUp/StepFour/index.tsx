@@ -3,14 +3,13 @@ import { AppContext } from "../../../contexts/AppContext";
 import { FieldValues, useForm } from "react-hook-form";
 import { api } from "../../../services/api";
 import { i18n } from "../../../i18n";
-import { Button, Checkbox, Drawer, FormControlLabel, InputAdornment, Snackbar, TextField } from "@mui/material";
+import { Checkbox, Drawer, FormControlLabel, InputAdornment, Snackbar, TextField } from "@mui/material";
 import { BiLock } from "react-icons/bi";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import PasswordStrengthBar from "react-password-strength-bar";
-import { LoadingButton } from "@mui/lab";
-import { MdArrowForward } from "react-icons/md";
 import { StepFourProps } from "./types";
 import Terms from "./Terms";
+import Button from "../../../components/Button";
 
 const StepFour: React.FC<StepFourProps> = ({ next, email, document }) => {
   const { lang } = useContext(AppContext);
@@ -118,10 +117,10 @@ const StepFour: React.FC<StepFourProps> = ({ next, email, document }) => {
             <span className="text-xs">Li e aceito <b>termos de uso</b></span>
           } />
 
-        <LoadingButton variant="contained" startIcon={<MdArrowForward />}
-          loading={isSubmitting} type="submit">
+
+        <Button forwardIcon loading={isSubmitting} submit>
           Próximo
-        </LoadingButton>
+        </Button>
       </form>
 
       <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}
@@ -131,7 +130,7 @@ const StepFour: React.FC<StepFourProps> = ({ next, email, document }) => {
             <Terms />
           </div>
           <div className="fixed bottom-0 left-0 p-6 bg-white w-full flex justify-center">
-            <Button className="w-[200px]" variant="contained" onClick={() => setOpenDrawer(false)}>
+            <Button className="w-[200px]" action={() => setOpenDrawer(false)}>
               Aceitar
             </Button>
           </div>
