@@ -58,8 +58,8 @@ const StepThree: React.FC<StepThreeProps> = ({ code, document, next }) => {
 
   return (
     <>
-      <h1 className="text-xl md:text-3xl font-bold text-[#2F3367]">{i18n[lang].reset_pass_third_step_title}</h1>
-      <p className="mt-3 text-xs md:text-base w-[55%]">{i18n[lang].reset_pass_third_step_subtitle}</p>
+      <h1 className="text-xl md:text-3xl font-regular text-[#2F3367]">{i18n[lang].reset_pass_third_step_title}</h1>
+      <p className="mt-3 text-xs md:text-base">{i18n[lang].reset_pass_third_step_subtitle}</p>
 
       <form onSubmit={handleSubmit(createNewPassword)} className="flex flex-col gap-3 my-6">
         <TextField type={passwordShow ? "text" : "password"} {...register('password')}

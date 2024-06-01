@@ -1,7 +1,5 @@
-import { TbCircleFilled } from "react-icons/tb";
 import { StepsProps } from "./types";
-import { FaRegCircle } from "react-icons/fa";
-import { IoCheckmark, IoInformationCircleOutline } from "react-icons/io5";
+import { IoCheckmark } from "react-icons/io5";
 
 const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
 

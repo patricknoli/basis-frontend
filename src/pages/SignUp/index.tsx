@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Header from "../../components/Header/External"
 import Hero from "../../components/Hero"
 import StepOne from "./StepOne";
@@ -6,11 +6,21 @@ import StepThree from "./StepThree";
 import StepTwo from "./StepTwo";
 import StepFour from "./StepFour";
 import StepFive from "./StepFive";
+import Steps from "../../components/Steps";
+import { AppContext } from "../../contexts/AppContext";
+import { i18n } from "../../i18n";
 
 const SignUp: React.FC = () => {
+  const { lang } = useContext(AppContext);
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [email, setEmail] = useState<string>("");
   const [document, setDocument] = useState<string>("");
+  const stepsLabels = [
+    i18n[lang].sign_up_step_one,
+    i18n[lang].sign_up_step_two,
+    i18n[lang].sign_up_step_three,
+    i18n[lang].sign_up_step_four
+  ]
 
   return (
     <>
@@ -23,6 +33,8 @@ const SignUp: React.FC = () => {
         </div>
         <div className="p-5 flex items-start md:items-center justify-center basis-full md:basis-[55%]">
           <div className="max-w-[500px] w-full">
+            <Steps steps={[1, 2, 3, 4]} activeStep={step} stepsLabels={stepsLabels} />
+
             {step == 1 && (
               <StepOne next={() => setStep(2)} saveEmail={setEmail} />
             )}
