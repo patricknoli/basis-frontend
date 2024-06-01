@@ -1,10 +1,9 @@
 import { TextField } from "@mui/material";
 import { StepTwoProps } from "./types";
 import { useContext, useEffect, useState } from "react";
-import { LoadingButton } from "@mui/lab";
-import { MdArrowForward } from "react-icons/md";
 import { i18n } from "../../../i18n";
 import { AppContext } from "../../../contexts/AppContext";
+import Button from "../../../components/Button";
 
 const StepTwo: React.FC<StepTwoProps> = ({ next, saveInitial, saveFinal }) => {
   const { lang } = useContext(AppContext);
@@ -83,10 +82,10 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveInitial, saveFinal }) => {
       </div>
 
       <div className="fixed left-0 bottom-3 w-full px-8 md:w-auto md:left-auto md:right-0">
-        <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
-          loading={isSubmitting} onClick={() => handleNext()}>
+        <Button className="w-full md:w-[300px]" forwardIcon
+          loading={isSubmitting} action={() => handleNext()}>
           {i18n[lang].real_estates_next_step}
-        </LoadingButton>
+        </Button>
       </div>
     </>
   )

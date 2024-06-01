@@ -22,7 +22,7 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
                     <IoInformationCircleOutline />
                   </div>
                 )}
-                
+
               </>
             ) : (
               <>

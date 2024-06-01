@@ -2,12 +2,13 @@ import { useContext, useState } from "react";
 import { i18n } from "../../../i18n"
 import { StepFourProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext";
-import { Button, Checkbox, Dialog, Divider, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { Checkbox, Dialog, Divider, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import { validateEmail } from "../../../support/validateEmail";
 import { LoadingButton } from "@mui/lab";
-import { MdArrowForward } from "react-icons/md";
 import { BsCalendarCheck } from "react-icons/bs";
-import { redirect, redirectDocument, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
+import { BiChevronRight } from "react-icons/bi";
 
 const StepFour: React.FC<StepFourProps> = () => {
   const { user, lang } = useContext(AppContext);
@@ -68,12 +69,12 @@ const StepFour: React.FC<StepFourProps> = () => {
 
       <div className="fixed left-0 bottom-3 w-full px-8 z-50 flex flex-col gap-2 md:flex-row-reverse md:w-auto md:left-auto md:right-0">
         {fileType && (
-          <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
-            loading={isSubmitting} onClick={() => extractReport("view")}>
+          <Button className="w-full md:w-[300px]" forwardIcon
+            loading={isSubmitting} action={() => extractReport("view")}>
             {i18n[lang].real_estates_fourth_step_view_button}
-          </LoadingButton>
+          </Button>
         )}
-        <LoadingButton className="w-full md:w-[300px]" variant="text" startIcon={<MdArrowForward />}
+        <LoadingButton className="w-full md:w-[300px]" endIcon={<BiChevronRight />}
           loading={isSubmitting} onClick={() => extractReport("download")}>
           {emailSend ? (
             <>
@@ -99,7 +100,7 @@ const StepFour: React.FC<StepFourProps> = () => {
           <p className="font-bold text-2xl text-center">
             {successMessage}
           </p>
-          <Button variant="contained" className="!py-2" onClick={() => handleGoHome()}>Ir para a tela inicial</Button>
+          <Button className="!py-2" action={() => handleGoHome()}>Ir para a tela inicial</Button>
         </div>
       </Dialog>
     </>

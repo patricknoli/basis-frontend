@@ -4,8 +4,8 @@ import { Realty, StepThreeProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext"
 import { Checkbox, Divider, FormControlLabel, InputAdornment, TextField } from "@mui/material"
 import { i18n } from "../../../i18n"
-import { LoadingButton } from "@mui/lab"
-import { MdArrowForward, MdClose, MdSearch } from "react-icons/md"
+import { MdClose, MdSearch } from "react-icons/md"
+import Button from "../../../components/Button"
 
 const StepThree: React.FC<StepThreeProps> = ({ initialDate, finalDate, saveProperties, next }) => {
   const { user, lang } = useContext(AppContext);
@@ -155,10 +155,10 @@ const StepThree: React.FC<StepThreeProps> = ({ initialDate, finalDate, savePrope
       </div>
 
       <div className="fixed left-0 bottom-3 w-full px-8 z-50 md:w-auto md:left-auto md:right-0">
-        <LoadingButton className="w-full md:w-[300px]" variant="contained" startIcon={<MdArrowForward />}
-          loading={isSubmitting} onClick={() => handleNext()}>
+        <Button className="w-full md:w-[300px]" forwardIcon
+          loading={isSubmitting} action={() => handleNext()}>
           {i18n[lang].real_estates_next_step}
-        </LoadingButton>
+        </Button>
       </div>
     </div>
   )
