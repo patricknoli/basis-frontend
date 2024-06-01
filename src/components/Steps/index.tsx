@@ -6,33 +6,31 @@ import { IoCheckmark, IoInformationCircleOutline } from "react-icons/io5";
 const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
 
   return (
-    <div className="my-4 flex items-center justify-between w-full md:max-w-[700px] md:px-10 md:pb-16">
+    <div className="my-4 flex items-center justify-between gap-2 md:gap-0 w-full md:max-w-[790px]">
       {steps.map((step, index) => (
         <>
-          <div className="relative" key={index}>
+          <div className="relative flex flex-col items-center gap-3" key={index}>
             {activeStep >= step ? (
               <>
-                <TbCircleFilled className="md:hidden" size={12} color="#5D41D0" />
                 {activeStep > step ? (
-                  <div className="hidden w-8 h-8 bg-[#A2F07B] rounded-full md:flex items-center justify-center">
-                    <IoCheckmark />
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-[#A2F07B] rounded-full flex items-center justify-center">
+                    <IoCheckmark color="#fff" />
                   </div>
                 ) : (
-                  <div className="hidden w-8 h-8 bg-[#00C2FF] outline outline-2 outline-offset-4 outline-[#00C2FF] rounded-full md:flex items-center justify-center">
-                    <IoInformationCircleOutline />
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-[#00C2FF] rounded-full flex items-center justify-center">
+                    <IoCheckmark color="#fff" />
                   </div>
                 )}
 
               </>
             ) : (
               <>
-                <FaRegCircle className="md:hidden" size={10} color="#B0AAAA" />
-                <div className="hidden w-8 h-8 bg-[#DCDCDC] rounded-full md:flex items-center justify-center">
-                  <IoInformationCircleOutline />
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-[#97989B] rounded-full flex items-center justify-center text-xs text-white">
+                  {step}
                 </div>
               </>
             )}
-            <span className={`hidden md:block text-sm text-center w-[100px] absolute left-[-100%] bottom-[-150%]
+            <span className={`hidden md:block text-sm text-center w-[100px] 
             ${activeStep == step && 'font-medium'}
             `}>
               {stepsLabels[index]}
