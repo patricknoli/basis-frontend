@@ -6,17 +6,19 @@ import { MdClose, MdSearch } from "react-icons/md";
 import { AppContext } from "../../../contexts/AppContext";
 import { i18n } from "../../../i18n";
 import Button from "../../../components/Button";
+import { ReportType } from "../types";
 
 const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
-  const { lang } = useContext(AppContext);
-  const [reportsList, setReportsList] = useState<{ descricao: string }[]>([]);
-  const [selectedReports, setSelectedReports] = useState<string[]>([]);
+  const { lang, user } = useContext(AppContext);
+  const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
+  const [reportsList, setReportsList] = useState<ReportType[]>([]);
+  const [selectedReports, setSelectedReports] = useState<ReportType[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [searchActive, setSearchActive] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
-  function handleSelection(selected: string) {
+  function handleSelection(selected: ReportType) {
     if (selectedReports.find((item) => item == selected)) {
       setSelectedReports(selectedReports.filter((item) => item != selected));
     } else {
@@ -26,7 +28,6 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
   function handleNext() {
     setIsSubmitting(true);
-    saveReports(selectedReports);
     setTimeout(() => {
       next();
     }, 1500)
@@ -36,7 +37,8 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
     try {
       const response = await api.get('/relatorios/listar', {
         headers: {
-          idBanco: 5
+          idBanco: 5,
+          idPerfil: owner?.correntista[0].idPerfil
         }
       });
 
@@ -51,9 +53,9 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
   function handleSelectAll(select: boolean) {
     if (select) {
-      let selectedObj: string[] = [];
+      let selectedObj: ReportType[] = [];
       reportsList.map((report) => {
-        selectedObj.push(report.descricao);
+        selectedObj.push(report);
       })
       setSelectedReports(selectedObj);
     } else {
@@ -67,7 +69,11 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
   useEffect(() => {
     handleSelectAll(true);
-  }, [reportsList])
+  }, [reportsList]);
+
+  useEffect(() => {
+    saveReports(selectedReports);
+  }, [selectedReports])
 
   return (
     <div className="relative">
@@ -124,8 +130,8 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
         {reportsList && (
           <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:mt-4">
             {reportsList.map((report, index) => report.descricao.toLowerCase().includes(search.toLowerCase()) && (
-              <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report.descricao)}
-                checked={selectedReports.find((item) => item == report.descricao) ? true : false} />}
+              <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report)}
+                checked={selectedReports.find((item) => item == report) ? true : false} />}
                 label={report.descricao} />
             ))}
           </div>

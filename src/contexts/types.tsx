@@ -23,6 +23,7 @@ export type AccountHolderType = {
   idcorrentista: number;
   codigopesquisa: string;
   tipocorrentista: "P" | "L";
+  idPerfil: number;
 }
 
 export type ThemeType = {

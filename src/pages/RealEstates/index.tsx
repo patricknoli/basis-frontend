@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Container from "../../components/Container";
 import Header from "../../components/Header/Internal";
 import StepOne from "./StepOne";
@@ -8,20 +8,31 @@ import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import { i18n } from "../../i18n";
 import { AppContext } from "../../contexts/AppContext";
+import { ReportType } from "./types";
 
 const RealEstates: React.FC = () => {
   const { lang } = useContext(AppContext);
   const [step, setStep] = useState<number>(1);
-  const [reports, setReports] = useState<string[]>([]);
+  const [reports, setReports] = useState<ReportType[]>([]);
   const [initialDate, setInitialDate] = useState<string>("");
   const [finalDate, setFinalDate] = useState<string>("");
   const [properties, setProperties] = useState<number[]>([]);
+  const [secondStep, setSecondStep] = useState<boolean>(false);
   const stepsLabels = [
     i18n[lang].real_estates_steps_label_one,
     i18n[lang].real_estates_steps_label_two,
     i18n[lang].real_estates_steps_label_three,
     i18n[lang].real_estates_steps_label_four
   ]
+  const stepsLabelsThree = [
+    i18n[lang].real_estates_steps_label_one,
+    i18n[lang].real_estates_steps_label_three,
+    i18n[lang].real_estates_steps_label_four
+  ]
+
+  useEffect(() => {
+    reports.find((item) => item.dataInicialFinal == true) ? setSecondStep(true) : setSecondStep(false)
+  }, [reports])
 
   return (
     <>
@@ -31,12 +42,12 @@ const RealEstates: React.FC = () => {
 
         <h1 className="hidden md:block text-3xl text-[#3A3541] font-semibold mb-10">Imóveis</h1>
 
-        <Steps steps={[1, 2, 3, 4]}
-          stepsLabels={stepsLabels}
+        <Steps steps={secondStep ? [1, 2, 3, 4] : [1, 2, 3]}
+          stepsLabels={secondStep ? stepsLabels : stepsLabelsThree}
           activeStep={step} />
 
         {step == 1 && (
-          <StepOne saveReports={setReports} next={() => setStep(2)} />
+          <StepOne saveReports={setReports} next={() => secondStep ? setStep(2) : setStep(3)} />
         )}
 
         {step == 2 && (

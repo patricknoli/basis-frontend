@@ -36,8 +36,12 @@ const Login: React.FC = () => {
           setIsSubmitting(false);
           updateUser(response.data);
         }, 1500)
+      } else {
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setOpenSnak(true);
+        }, 1500);
       }
-
     } catch (error) {
       console.log(error);
       setTimeout(() => {
