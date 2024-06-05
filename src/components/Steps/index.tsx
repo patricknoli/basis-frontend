@@ -1,3 +1,4 @@
+import { Fragment } from "react/jsx-runtime";
 import { StepsProps } from "./types";
 import { IoCheckmark } from "react-icons/io5";
 
@@ -6,8 +7,8 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
   return (
     <div className="my-4 flex items-center justify-between gap-2 md:gap-0 w-full md:max-w-[790px]">
       {steps.map((step, index) => (
-        <>
-          <div className="relative flex flex-col items-center gap-3" key={index}>
+        <Fragment key={index}>
+          <div className="relative flex flex-col items-center gap-3">
             {activeStep >= step ? (
               <>
                 {activeStep > step ? (
@@ -36,11 +37,11 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
           </div>
           {step < steps.length && (
             <div className={`h-[1px] md:h-[2px] w-full 
-             ${activeStep > step ? 'bg-[#5D41D0] md:bg-[#A2F07B]' : 'bg-[#B0AAAA]'}
+             ${activeStep > step ? 'bg-[#00C2FF] md:bg-[#A2F07B]' : 'bg-[#B0AAAA]'}
             `
             }></div>
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   )

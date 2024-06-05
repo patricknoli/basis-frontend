@@ -14,8 +14,8 @@ const RealEstates: React.FC = () => {
   const { lang } = useContext(AppContext);
   const [step, setStep] = useState<number>(1);
   const [reports, setReports] = useState<ReportType[]>([]);
-  const [initialDate, setInitialDate] = useState<string>("");
-  const [finalDate, setFinalDate] = useState<string>("");
+  const [initialDate, setInitialDate] = useState<string | undefined>();
+  const [finalDate, setFinalDate] = useState<string | undefined>();
   const [properties, setProperties] = useState<number[]>([]);
   const [secondStep, setSecondStep] = useState<boolean>(false);
   const stepsLabels = [
@@ -55,12 +55,11 @@ const RealEstates: React.FC = () => {
         )}
 
         {step == 3 && (
-          <StepThree next={() => setStep(4)} saveProperties={setProperties}
-            initialDate={initialDate} finalDate={finalDate} />
+          <StepThree next={() => setStep(4)} saveProperties={setProperties} />
         )}
 
         {step == 4 && (
-          <StepFour properties={properties} reports={reports} />
+          <StepFour properties={properties} reports={reports} initialDate={initialDate} finalDate={finalDate} />
         )}
       </Container>
     </>

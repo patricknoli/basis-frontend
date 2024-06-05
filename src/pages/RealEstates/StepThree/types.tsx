@@ -1,7 +1,5 @@
 export type StepThreeProps = {
   next: () => void;
-  initialDate: string;
-  finalDate: string;
   saveProperties: React.Dispatch<React.SetStateAction<number[]>>
 }
 

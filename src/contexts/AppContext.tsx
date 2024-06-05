@@ -14,6 +14,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [userName, setUserName] = useState<string | undefined>("");
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
 
+  async function getTheme() {
+    setTheme(theme);
+  }
+
   function updateUser(auth_user: UserType[]) {
     setUser(auth_user);
   }
@@ -37,6 +41,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         : user?.find((item) => item.correntista[0].tipocorrentista == "L")?.nome
     )
   }, [user])
+
+  useEffect(() => {
+    getTheme();
+  }, [])
 
   return (
     <AppContext.Provider value={{

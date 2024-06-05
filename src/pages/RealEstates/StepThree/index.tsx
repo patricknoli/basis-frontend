@@ -7,7 +7,7 @@ import { i18n } from "../../../i18n"
 import { MdClose, MdSearch } from "react-icons/md"
 import Button from "../../../components/Button"
 
-const StepThree: React.FC<StepThreeProps> = ({ initialDate, finalDate, saveProperties, next }) => {
+const StepThree: React.FC<StepThreeProps> = ({ saveProperties, next }) => {
   const { user, lang } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [properties, setProperties] = useState<Realty[]>([]);
@@ -50,9 +50,7 @@ const StepThree: React.FC<StepThreeProps> = ({ initialDate, finalDate, savePrope
     try {
       const response = await api.get('/correntistas/proprietario/imoveis/listar', {
         headers: {
-          idCorrentista: owner?.correntista[0].idcorrentista,
-          dataInicial: initialDate,
-          dataFinal: finalDate
+          idCorrentista: owner?.correntista[0].idcorrentista
         }
       })
       if (response.status == 200) {
@@ -143,7 +141,7 @@ const StepThree: React.FC<StepThreeProps> = ({ initialDate, finalDate, savePrope
         {properties && (
           <div className="p-2 flex flex-col gap-2 max-h-[54vh] overflow-auto">
             {properties.map((realty, index) => realty.imovel.endereco.toLowerCase().includes(search.toLowerCase()) && (
-              <div className="md:grid md:grid-cols-2 md:items-center md:border md:border-t-0 md:border-x-0 md:border-b-1 md:last:border-b-0">
+              <div key={realty.imovel.idtbbobjetoimovel} className="md:grid md:grid-cols-2 md:items-center md:border md:border-t-0 md:border-x-0 md:border-b-1 md:last:border-b-0">
                 <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(realty.imovel.idtbbobjetoimovel)}
                   checked={selectedProperties.find((item) => item == realty.imovel.idtbbobjetoimovel) ? true : false} />}
                   label={realty.imovel.endereco} />

@@ -2,15 +2,17 @@ import { useContext, useState } from "react";
 import { i18n } from "../../../i18n"
 import { StepFourProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext";
-import { Checkbox, Dialog, Divider, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { Checkbox, Dialog, Divider, FormControlLabel, Radio, RadioGroup, Snackbar, TextField } from "@mui/material";
 import { validateEmail } from "../../../support/validateEmail";
 import { LoadingButton } from "@mui/lab";
 import { BsCalendarCheck } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { BiChevronRight } from "react-icons/bi";
+import { api } from "../../../services/api";
+import { ReportType } from "../types";
 
-const StepFour: React.FC<StepFourProps> = () => {
+const StepFour: React.FC<StepFourProps> = ({ reports, properties, initialDate, finalDate }) => {
   const { user, lang } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [fileType, setFileType] = useState<string>();
@@ -20,20 +22,82 @@ const StepFour: React.FC<StepFourProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [snackMessage, setSnackMessage] = useState<string>("");
   const navigate = useNavigate();
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches;
 
   function handleGoHome() {
     window.innerWidth > 768 ? window.location.reload() : navigate("/home")
   }
 
+  async function generateReport(report: ReportType, type: "view" | "download", idImoveis: string) {
+    try {
+      const params = {
+        'idBanco': "5",
+        'idCorrentista': owner?.correntista[0].idcorrentista.toString(),
+        'idImovel': idImoveis,
+        'tipoEnvio': emailSend ? 'true' : 'false',
+        'tipoDoc': fileType,
+        ...(email && { 'email': email }),
+        ...(report.dataInicialFinal && { 'dtini': initialDate?.toString() }),
+        ...(report.dataInicialFinal && { 'dtfim': finalDate?.toString() })
+      }
+      const response = await api.get(report.url, {
+        headers: {
+          'accept': 'application/json',
+          ...params
+        }
+      });
+      if (response.status == 200) {
+        setTimeout(() => {
+          if (type == "download") {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${report.descricao}.${fileType}`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setOpenDialog(true);
+          } else if (type == "view") {
+            if (isPWA) {
+              window.location.assign(response.data.url);
+            } else {
+              window.open(response.data.url, "_blank");
+            }
+          }
+        }, 1500);
+        return true;
+      } else {
+        setSnackMessage(snackMessage == "" ? `Erro ao emitir o relatório ${report.descricao}` : "Erro ao emitir relatórios");
+        setOpenSnack(true);
+        return false;
+      }
+    } catch (error) {
+      setSnackMessage(snackMessage == "" ? `Erro ao emitir o relatório ${report.descricao}` : "Erro ao emitir relatórios");
+      setOpenSnack(true);
+      return false;
+    }
+  }
+
   async function extractReport(type: "view" | "download") {
-    setIsSubmitting(true);
-    setSuccessMessage(emailSend && email ? "Email enviado com sucesso!" : "Relatórios baixados com sucesso!");
-    setTimeout(() => {
+    try {
+      setIsSubmitting(true);
+      setSuccessMessage(emailSend && email ? "Email enviado com sucesso!" : "Relatórios baixados com sucesso!");
+      let idImoveis: string = properties.join(',');
+      for (const report of reports) {
+        const success = await generateReport(report, type, idImoveis);
+        if (!success) {
+          throw new Error(`Erro ao emitir o relatório ${report.descricao}`);
+        }
+      }
       setIsSubmitting(false);
-      type == "download" && setOpenDialog(true);
-      type == "view" && window.open("http://reports.basissistemas.com.br/63/immobilenet/reports/temp/contacorrente1713215202923.pdf", "_blank");
-    }, 1500);
+    } catch (error) {
+      setIsSubmitting(false);
+      setSnackMessage(`Erro ao emitir os relatórios`);
+      setOpenSnack(true);
+    }
   }
 
   return (
@@ -46,7 +110,7 @@ const StepFour: React.FC<StepFourProps> = () => {
           onChange={(e) => setFileType(e.target.value)}
         >
           <FormControlLabel value="pdf" control={<Radio />} label={i18n[lang].real_estates_fourth_step_input_file_type_one} />
-          <FormControlLabel value="xlsx" control={<Radio />} label={i18n[lang].real_estates_fourth_step_input_file_type_two} />
+          <FormControlLabel value="xsls" control={<Radio />} label={i18n[lang].real_estates_fourth_step_input_file_type_two} />
         </RadioGroup>
 
         <Divider />
@@ -103,6 +167,13 @@ const StepFour: React.FC<StepFourProps> = () => {
           <Button className="!py-2" action={() => handleGoHome()}>Ir para a tela inicial</Button>
         </div>
       </Dialog>
+
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnack(false)}
+        message={snackMessage}
+      />
     </>
   )
 }
