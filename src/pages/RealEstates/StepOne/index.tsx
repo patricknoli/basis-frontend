@@ -128,7 +128,7 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
 
         <Divider />
         {reportsList && (
-          <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:mt-4">
+          <div className="reports flex flex-col gap-2 md:grid md:grid-cols-3 md:mt-4">
             {reportsList.map((report, index) => report.descricao.toLowerCase().includes(search.toLowerCase()) && (
               <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(report)}
                 checked={selectedReports.find((item) => item == report) ? true : false} />}

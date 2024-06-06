@@ -138,7 +138,7 @@ const StepFour: React.FC<StepFourProps> = ({ reports, properties, initialDate, f
             {i18n[lang].real_estates_fourth_step_view_button}
           </Button>
         )}
-        <LoadingButton className="w-full md:w-[300px]" endIcon={<BiChevronRight />}
+        <LoadingButton className="download w-full md:w-[300px]" endIcon={<BiChevronRight />}
           loading={isSubmitting} onClick={() => extractReport("download")}>
           {emailSend ? (
             <>

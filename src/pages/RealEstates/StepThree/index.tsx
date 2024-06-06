@@ -124,7 +124,7 @@ const StepThree: React.FC<StepThreeProps> = ({ saveProperties, next }) => {
 
         {selectedProperties.length > 0 && (
           <div className="bg-[#E6E9F4] w-1/2 md:w-1/6 px-2 rounded flex items-center justify-between">
-            <span className="text-sm text-[#5A607F]">{selectedProperties.length} {i18n[lang].real_estates_third_step_selected}</span>
+            <span className="count text-sm text-[#5A607F]">{selectedProperties.length} {i18n[lang].real_estates_third_step_selected}</span>
             <button className="text-xl" onClick={() => handleSelectAll(false)}>&times;</button>
           </div>
         )}
@@ -139,7 +139,7 @@ const StepThree: React.FC<StepThreeProps> = ({ saveProperties, next }) => {
           <span className="text-lg font-bold">{i18n[lang].real_estates_third_step_list_label_two}</span>
         </div>
         {properties && (
-          <div className="p-2 flex flex-col gap-2 max-h-[54vh] overflow-auto">
+          <div className="properties p-2 flex flex-col gap-2 max-h-[54vh] overflow-auto">
             {properties.map((realty, index) => realty.imovel.endereco.toLowerCase().includes(search.toLowerCase()) && (
               <div key={realty.imovel.idtbbobjetoimovel} className="md:grid md:grid-cols-2 md:items-center md:border md:border-t-0 md:border-x-0 md:border-b-1 md:last:border-b-0">
                 <FormControlLabel key={index} control={<Checkbox onChange={() => handleSelection(realty.imovel.idtbbobjetoimovel)}
