@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { AppContextInitialValues, AppContextType, AppProviderProps, ThemeType, UserType } from "./types";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -13,6 +14,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [profile, setProfile] = useState<"owner" | "tenant" | null>(null);
   const [userName, setUserName] = useState<string | undefined>("");
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
+  const navigate = useNavigate();
 
   async function getTheme() {
     setTheme(theme);
@@ -33,13 +35,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   useEffect(() => {
     if (!!user && user.length > 0) {
       setAuthenticated(true);
+      setUserName(
+        profile == "owner" ? user?.find((item) => item.correntista[0].tipocorrentista == "P")?.nome
+          : user?.find((item) => item.correntista[0].tipocorrentista == "L")?.nome
+      )
     } else {
       setAuthenticated(false);
     }
-    setUserName(
-      profile == "owner" ? user?.find((item) => item.correntista[0].tipocorrentista == "P")?.nome
-        : user?.find((item) => item.correntista[0].tipocorrentista == "L")?.nome
-    )
   }, [user])
 
   useEffect(() => {
