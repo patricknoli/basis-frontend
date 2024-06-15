@@ -27,7 +27,7 @@ const Home: React.FC = () => {
             <CiHome size={45} />
             <span className="text-sm">{i18n[lang].home_nav_real_state}</span>
           </Link>
-          <Link to="/reports" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+          <Link to="/income-reports" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
             <CiHome size={45} />
             <span className="text-sm">{i18n[lang].home_nav_reports}</span>
           </Link>

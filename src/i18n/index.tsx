@@ -103,7 +103,16 @@ export const i18n = {
     real_estates_fourth_step_input_email: "email",
     real_estates_fourth_step_view_button: "Visualizar",
     real_estates_fourth_step_download_button: "Baixar",
-    real_estates_fourth_step_email_button: "Enviar"
+    real_estates_fourth_step_email_button: "Enviar",
+    income_reports_title: "Informes",
+    income_reports_steps_label_one: "Selecione os relatórios",
+    income_reports_steps_label_two: "Escolha o período",
+    income_reports_steps_label_three: "Baixe o relatório",
+    income_reports_step_one_title: "Selecione os relatórios",
+    income_reports_step_one_subtitle: "Selecione os relatórios",
+    income_reports_step_two_title: "Escolha o período",
+    income_reports_step_two_subtitle: "Ano base",
+    income_reports_step_two_select_label: "Ano"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -209,6 +218,15 @@ export const i18n = {
     real_estates_fourth_step_input_email: "email",
     real_estates_fourth_step_view_button: "View",
     real_estates_fourth_step_download_button: "Download",
-    real_estates_fourth_step_email_button: "Send"
+    real_estates_fourth_step_email_button: "Send",
+    income_reports_title: "Income Reports",
+    income_reports_steps_label_one: "Select the reports",
+    income_reports_steps_label_two: "Choose the period",
+    income_reports_steps_label_three: "Download report",
+    income_reports_step_one_title: "Select the reports",
+    income_reports_step_one_subtitle: "Select the reports",
+    income_reports_step_two_title: "Choose the period",
+    income_reports_step_two_subtitle: "Base Year",
+    income_reports_step_two_select_label: "Year"
   }
 }

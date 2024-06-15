@@ -7,12 +7,14 @@ import RealEstates from "../pages/RealEstates";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import SelectProfile from "../pages/SelectProfile";
+import IncomeReports from "../pages/IncomeReports";
 
 export function AppRoutes() {
   return (
     <Router>
       <AppProvider>
         <Routes>
+          <Route path="/income-reports" element={<PrivateRoute component={IncomeReports} />} />
           <Route path="/real-estates" element={<PrivateRoute component={RealEstates} />} />
           <Route path="/home" element={<PrivateRoute component={Home} />} />
 
