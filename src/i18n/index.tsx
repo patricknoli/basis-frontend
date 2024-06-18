@@ -112,7 +112,8 @@ export const i18n = {
     income_reports_step_one_subtitle: "Selecione os relatórios",
     income_reports_step_two_title: "Escolha o período",
     income_reports_step_two_subtitle: "Ano base",
-    income_reports_step_two_select_label: "Ano"
+    income_reports_step_two_select_label: "Ano",
+    documents_title: "Documentos"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -227,6 +228,7 @@ export const i18n = {
     income_reports_step_one_subtitle: "Select the reports",
     income_reports_step_two_title: "Choose the period",
     income_reports_step_two_subtitle: "Base Year",
-    income_reports_step_two_select_label: "Year"
+    income_reports_step_two_select_label: "Year",
+    documents_title: "Documents"
   }
 }

@@ -8,12 +8,14 @@ import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import SelectProfile from "../pages/SelectProfile";
 import IncomeReports from "../pages/IncomeReports";
+import Documents from "../pages/Documents";
 
 export function AppRoutes() {
   return (
     <Router>
       <AppProvider>
         <Routes>
+          <Route path="/documents" element={<PrivateRoute component={Documents} />} />
           <Route path="/income-reports" element={<PrivateRoute component={IncomeReports} />} />
           <Route path="/real-estates" element={<PrivateRoute component={RealEstates} />} />
           <Route path="/home" element={<PrivateRoute component={Home} />} />
