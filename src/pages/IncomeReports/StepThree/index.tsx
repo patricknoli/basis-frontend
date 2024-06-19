@@ -38,7 +38,7 @@ const StepThree: React.FC<StepThreeProps> = ({ year, reports }) => {
         'idCorrentista': owner?.correntista[0].idcorrentista.toString(),
         'tipoEnvio': emailSend ? 'true' : 'false',
         'tipoDoc': fileType,
-        'tipoInfome': report.tipoInfome,
+        'tipoInforme': report.tipoInforme,
         'ano': year,
         ...(email && { 'email': email })
       }
