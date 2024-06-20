@@ -13,7 +13,7 @@ import { api } from "../../../services/api";
 import { ReportType } from "../types";
 
 const StepFour: React.FC<StepFourProps> = ({ reports, properties, initialDate, finalDate }) => {
-  const { user, lang } = useContext(AppContext);
+  const { user, lang, dataId } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [fileType, setFileType] = useState<string>();
   const [emailSend, setEmailSend] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const StepFour: React.FC<StepFourProps> = ({ reports, properties, initialDate, f
   async function generateReport(report: ReportType, type: "view" | "download", idImoveis: string) {
     try {
       const params = {
-        'idBanco': "5",
+        'idBanco': dataId,
         'idCorrentista': owner?.correntista[0].idcorrentista.toString(),
         'idImovel': idImoveis,
         'tipoEnvio': emailSend ? 'true' : 'false',

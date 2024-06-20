@@ -7,7 +7,7 @@ import Button from "../../../components/Button";
 import { api } from "../../../services/api";
 
 const StepTwo: React.FC<StepTwoProps> = ({ next, saveYear }) => {
-  const { lang, user } = useContext(AppContext);
+  const { lang, user, dataId } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [year, setYear] = useState<string>("");
   const [yearOptions, setYearOptions] = useState<string[]>([]);
@@ -26,7 +26,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveYear }) => {
       const response = await api.get('/informe/listarAnos', {
         headers: {
           idCorrentista: owner?.correntista[0].idcorrentista,
-          idBanco: 5
+          idBanco: dataId
         }
       });
       if (response.status == 200) {

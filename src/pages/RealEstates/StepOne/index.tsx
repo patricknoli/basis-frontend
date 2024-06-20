@@ -9,7 +9,7 @@ import Button from "../../../components/Button";
 import { ReportType } from "../types";
 
 const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
-  const { lang, user } = useContext(AppContext);
+  const { lang, user, dataId } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [reportsList, setReportsList] = useState<ReportType[]>([]);
   const [selectedReports, setSelectedReports] = useState<ReportType[]>([]);
@@ -37,7 +37,7 @@ const StepOne: React.FC<StepOneProps> = ({ saveReports, next }) => {
     try {
       const response = await api.get('/relatorios/listar', {
         headers: {
-          idBanco: 5,
+          idBanco: dataId,
           idPerfil: owner?.correntista[0].idPerfil
         }
       });

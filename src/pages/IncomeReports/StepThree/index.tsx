@@ -13,7 +13,7 @@ import { StepThreeProps } from "./types";
 import { IncomeReportType } from "../types";
 
 const StepThree: React.FC<StepThreeProps> = ({ year, reports }) => {
-  const { user, lang } = useContext(AppContext);
+  const { user, lang, dataId } = useContext(AppContext);
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [fileType, setFileType] = useState<string>();
   const [emailSend, setEmailSend] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const StepThree: React.FC<StepThreeProps> = ({ year, reports }) => {
   async function generateReport(report: IncomeReportType, type: "view" | "download") {
     try {
       const params = {
-        'idBanco': "5",
+        'idBanco': dataId,
         'idCorrentista': owner?.correntista[0].idcorrentista.toString(),
         'tipoEnvio': emailSend ? 'true' : 'false',
         'tipoDoc': fileType,

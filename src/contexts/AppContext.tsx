@@ -14,6 +14,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [profile, setProfile] = useState<"owner" | "tenant" | null>(null);
   const [userName, setUserName] = useState<string | undefined>("");
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
+  const [dataId, setDataId] = useState<string | null>(null);
   const navigate = useNavigate();
 
   async function getTheme() {
@@ -46,6 +47,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   useEffect(() => {
     getTheme();
+    const url = window.location.search;
+    const urlParams = new URLSearchParams(url);
+    setDataId(urlParams.get("res"));
   }, [])
 
   return (
@@ -58,7 +62,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       authenticated,
       profile,
       userName,
-      theme
+      theme,
+      dataId
     }}>
       {children}
     </AppContext.Provider>

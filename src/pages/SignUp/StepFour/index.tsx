@@ -12,7 +12,7 @@ import Terms from "./Terms";
 import Button from "../../../components/Button";
 
 const StepFour: React.FC<StepFourProps> = ({ next, email, document }) => {
-  const { lang } = useContext(AppContext);
+  const { lang, dataId } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const StepFour: React.FC<StepFourProps> = ({ next, email, document }) => {
         headers: {
           cpfcnpj: document,
           email: email,
-          idBanco: 5,
+          idBanco: dataId,
           senha: fields.password
         }
       })

@@ -11,7 +11,7 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import Button from "../../../components/Button";
 
 const StepThree: React.FC<StepThreeProps> = ({ code, document, next }) => {
-  const { lang } = useContext(AppContext);
+  const { lang, dataId } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const StepThree: React.FC<StepThreeProps> = ({ code, document, next }) => {
         headers: {
           "cpfcnpj": document,
           "codigo": code,
-          "idBanco": 5,
+          "idBanco": dataId,
           "senha": fields.password
         }
       })

@@ -12,6 +12,7 @@ export type AppContextType = {
   userName: string | undefined;
   profile: "owner" | "tenant" | null;
   theme: ThemeType;
+  dataId: string | null;
 }
 
 export type UserType = {

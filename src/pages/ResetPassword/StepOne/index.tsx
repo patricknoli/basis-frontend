@@ -12,7 +12,7 @@ import { validateDocument } from "../../../support/validateDocument";
 import Button from "../../../components/Button";
 
 const StepOne: React.FC<StepOneProps> = ({ next, saveDocument }) => {
-  const { lang } = useContext(AppContext);
+  const { lang, dataId } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const StepOne: React.FC<StepOneProps> = ({ next, saveDocument }) => {
       let response = await api.get('usuario/recuperarSenha', {
         headers: {
           "cpfcnpj": fields.document,
-          "idBanco": 5
+          "idBanco": dataId
         }
       });
       if (response.status == 200) {
