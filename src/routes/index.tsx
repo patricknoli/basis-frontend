@@ -2,13 +2,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppProvider } from "../contexts/AppContext";
 import Login from "../pages/Login";
 import ResetPassword from "../pages/ResetPassword";
-import { PrivateRoute, SimpleRoute } from "./auth";
+import { PrivateRoute, SimpleRoute, TenantRoute } from "./auth";
 import RealEstates from "../pages/RealEstates";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import SelectProfile from "../pages/SelectProfile";
 import IncomeReports from "../pages/IncomeReports";
 import Documents from "../pages/Documents";
+import Receipts from "../pages/Receipts";
 
 export function AppRoutes() {
   return (
@@ -19,6 +20,9 @@ export function AppRoutes() {
           <Route path="/income-reports" element={<PrivateRoute component={IncomeReports} />} />
           <Route path="/real-estates" element={<PrivateRoute component={RealEstates} />} />
           <Route path="/home" element={<PrivateRoute component={Home} />} />
+
+          <Route path="/receipts" element={<TenantRoute component={Receipts} />} />
+          <Route path="/documents/tenant" element={<TenantRoute component={Documents} />} />
 
           <Route path="/" element={<SimpleRoute component={Login} />} />
           <Route path="/select-profile" element={<SelectProfile />} />

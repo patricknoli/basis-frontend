@@ -4,11 +4,11 @@ import { AppContext } from "../../../contexts/AppContext";
 import { Link } from "react-router-dom";
 import { CiHome } from "react-icons/ci";
 import { BiChevronLeft } from "react-icons/bi";
-import { MdExpandMore, MdLogout, MdOutlineGroup, MdOutlineSettings } from "react-icons/md";
+import { MdExpandMore } from "react-icons/md";
 import DropdownMenu from "./DropdownMenu";
 
 const Header: React.FC<{ home?: boolean; back?: boolean; backAction?: () => void }> = ({ home, back, backAction }) => {
-  const { userName, user } = useContext(AppContext);
+  const { userName } = useContext(AppContext);
   const [openDropdown, setOpenDropDown] = useState<boolean>(false);
   const isMobile = window.innerWidth < 768;
 

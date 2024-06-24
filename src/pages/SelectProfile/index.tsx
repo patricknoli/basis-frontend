@@ -16,7 +16,7 @@ const SelectProfile: React.FC = () => {
     if (profile == "owner") {
       navigate(isMobile ? "/home" : "/real-estates")
     } else {
-      navigate(isMobile ? "/" : "/");
+      navigate(isMobile ? "/receipts" : "/receipts");
     }
   }
 

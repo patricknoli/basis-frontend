@@ -11,7 +11,8 @@ import { api } from "../../services/api";
 import { AddressDocumentsType, DocumentType } from "./types";
 
 const Documents: React.FC = () => {
-  const { user, lang, dataId } = useContext(AppContext);
+  const { user, lang, dataId, profile } = useContext(AppContext);
+  const tenant = user?.find((item) => item.correntista[0].tipocorrentista == "L");
   const owner = user?.find((item) => item.correntista[0].tipocorrentista == "P");
   const [documents, setDocuments] = useState<AddressDocumentsType[]>([]);
   const isPWA = window.matchMedia('(display-mode: standalone)').matches;
@@ -21,7 +22,7 @@ const Documents: React.FC = () => {
       const response = await api.get('/arquivos/arquivosProprietarios', {
         headers: {
           idBanco: dataId,
-          idCorrentista: owner?.correntista[0].idcorrentista
+          idCorrentista: profile == "owner" ? owner?.correntista[0].idcorrentista : tenant?.correntista[0].idcorrentista
         }
       });
       if (response.status == 200) {
