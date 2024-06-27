@@ -13,6 +13,7 @@ const SelectProfile: React.FC = () => {
 
   function handleProfile(profile: "owner" | "tenant") {
     changeProfile(profile);
+    localStorage.setItem('profile', profile);
     if (profile == "owner") {
       navigate(isMobile ? "/home" : "/real-estates")
     } else {

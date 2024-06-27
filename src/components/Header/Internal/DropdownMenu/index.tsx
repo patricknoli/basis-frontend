@@ -9,6 +9,12 @@ const DropdownMenu: React.FC = () => {
   const { userName, user, lang, changeLanguage, changeProfile, profile, updateUser } = useContext(AppContext);
   const navigate = useNavigate();
 
+  function handleLogout() {
+    updateUser([]);
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
+
   return (
     <>
       <div className="flex items-center gap-2 px-3 py-2">
@@ -34,9 +40,7 @@ const DropdownMenu: React.FC = () => {
         {i18n[lang].dropdown_menu_change_password_label}
       </div>
       <hr />
-      <div className="flex items-center gap-2 px-3 py-2 cursor-pointer text-sm" onClick={() => {
-        updateUser([]); window.location.reload();
-      }}>
+      <div className="flex items-center gap-2 px-3 py-2 cursor-pointer text-sm" onClick={() => handleLogout()}>
         <MdLogout size={20} />
         {i18n[lang].dropdown_menu_logout_label}
       </div>

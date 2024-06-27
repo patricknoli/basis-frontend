@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { AppContextInitialValues, AppContextType, AppProviderProps, ThemeType, UserType } from "./types";
+import { api } from "../services/api";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -30,6 +31,26 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   function changeProfile(selected_profile: "owner" | "tenant") {
     setProfile(selected_profile)
     setUserName(user?.find((item) => item.correntista[0].tipocorrentista == "L")?.nome)
+    localStorage.setItem('profile', selected_profile)
+  }
+
+  async function verifyToken() {
+    try {
+      const token = localStorage.getItem('token');
+      const savedProfile = localStorage.getItem('profile');
+      if (token) {
+        const response = await api.get('/login/validarToken', {
+          headers: {
+            token: token
+          }
+        });
+
+        if (response.status == 200) {
+          savedProfile == ("owner" || "tenant") && setProfile(savedProfile);
+          updateUser(response.data);
+        }
+      }
+    } catch (error) { }
   }
 
   useEffect(() => {
@@ -48,7 +69,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     getTheme();
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
-    setDataId(urlParams.get("res"));
+    const res = urlParams.get("res");
+    const savedRes = localStorage.getItem('res');
+    if (res && !savedRes) {
+      res && localStorage.setItem('res', res);
+      setDataId(res);
+    } else {
+      savedRes && setDataId(savedRes);
+    }
+    verifyToken();
   }, [])
 
   return (

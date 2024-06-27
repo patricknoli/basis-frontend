@@ -10,18 +10,18 @@ interface Props {
 export const PrivateRoute: React.FC<Props> = ({
   component: RouteComponent,
 }) => {
-  const { authenticated, profile } = useContext(AppContext);
+  const { authenticated, profile, dataId } = useContext(AppContext);
 
   if (authenticated != null) {
     if (authenticated) {
       if (profile == "owner") {
         return <RouteComponent />;
       } else {
-        return <Navigate to="/" />;
+        return <Navigate to={`/receipts`} />;
       }
     } else {
       localStorage.setItem("destination_url", window.location.pathname);
-      return <Navigate to="/" />;
+      return <Navigate to={`/?res=${dataId}`} />;
     }
   }
 };
@@ -29,7 +29,7 @@ export const PrivateRoute: React.FC<Props> = ({
 export const TenantRoute: React.FC<Props> = ({
   component: RouteComponent,
 }) => {
-  const { authenticated, profile } = useContext(AppContext);
+  const { authenticated, profile, dataId } = useContext(AppContext);
   const isMobile = window.innerWidth <= 768;
 
   if (authenticated != null) {
@@ -37,7 +37,7 @@ export const TenantRoute: React.FC<Props> = ({
       return <RouteComponent />;
     } else if (!authenticated) {
       localStorage.setItem("destination_url", window.location.pathname);
-      return <Navigate to="/" />;
+      return <Navigate to={`/?res=${dataId}`} />;
     } else if (authenticated && profile != "tenant") {
       return <Navigate to={isMobile ? "/home" : "/real-estates"} />
     }
@@ -45,11 +45,11 @@ export const TenantRoute: React.FC<Props> = ({
 }
 
 export const SimpleRoute: React.FC<Props> = ({ component: RouteComponent }) => {
-  const { authenticated, user, changeProfile } = useContext(AppContext);
+  const { authenticated, user, changeProfile, profile } = useContext(AppContext);
   const isMobile = window.innerWidth <= 768;
 
   if (authenticated && user) {
-    if (user.length > 1) {
+    if (user.length > 1 && !profile) {
       return <Navigate to={"/select-profile"} />;
     } else {
       const isOwner = user[0].correntista[0].tipocorrentista == "P"
@@ -57,7 +57,7 @@ export const SimpleRoute: React.FC<Props> = ({ component: RouteComponent }) => {
       if (isOwner) {
         return <Navigate to={isMobile ? "/home" : "/real-estates"} />;
       } else {
-        return <Navigate to={isMobile ? "/" : "/"} />;
+        return <Navigate to={isMobile ? "/receipts" : "/receipts"} />;
       }
     }
   }

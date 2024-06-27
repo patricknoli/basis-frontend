@@ -34,7 +34,8 @@ const Login: React.FC = () => {
       if (response.status == 200) {
         setTimeout(() => {
           setIsSubmitting(false);
-          updateUser(response.data);
+          updateUser(response.data.usuario);
+          localStorage.setItem('token', response.data.token);
         }, 1500)
       } else {
         setTimeout(() => {
