@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { AppContextInitialValues, AppContextType, AppProviderProps, ThemeType, UserType } from "./types";
+import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ThemeType, UserType } from "./types";
 import { api } from "../services/api";
 
 export const AppContext = createContext<AppContextType>(
@@ -15,6 +15,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [userName, setUserName] = useState<string | undefined>("");
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
   const [dataId, setDataId] = useState<string | null>(null);
+  const [company, setCompany] = useState<CompanyType | null>(null);
 
   async function getTheme() {
     setTheme(theme);
@@ -53,6 +54,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     } catch (error) { }
   }
 
+  async function getCompany() {
+    try {
+      const response = await api.get('/empresas/listar', {
+        headers: {
+          idBanco: dataId
+        }
+      });
+      if (response.status == 200) {
+        setCompany(response.data[0]);
+      }
+    } catch (error) { }
+  }
+
   useEffect(() => {
     if (!!user && user.length > 0) {
       setAuthenticated(true);
@@ -78,6 +92,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       savedRes && setDataId(savedRes);
     }
     verifyToken();
+    getCompany();
   }, [])
 
   return (
@@ -91,7 +106,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       profile,
       userName,
       theme,
-      dataId
+      dataId,
+      company
     }}>
       {children}
     </AppContext.Provider>

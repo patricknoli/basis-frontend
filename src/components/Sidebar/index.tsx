@@ -5,13 +5,13 @@ import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
 
 const Sidebar: React.FC = () => {
-  const { profile, dataId } = useContext(AppContext);
+  const { profile, dataId, company } = useContext(AppContext);
 
   return (
     <nav className="hidden md:block w-[300px] h-full shadow-md z-50 fixed left-0 top-0">
       <div className="px-6 py-2 flex bg-white justify-center items-center gap-3">
         <img src={`https://images.locacaonet.basissistemas.com.br/${dataId}/logo.jpg`} alt="" className="w-[70px]" />
-        <h1 className="font-extrabold text-2xl">Logo Empresa</h1>
+        <h1 className="font-extrabold text-2xl">{company?.nome}</h1>
       </div>
       <div className="p-6 bg-[#F5F6FA] flex flex-col jusitify-center">
         {profile == "owner" && (

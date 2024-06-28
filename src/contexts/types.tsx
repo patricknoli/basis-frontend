@@ -13,6 +13,14 @@ export type AppContextType = {
   profile: "owner" | "tenant" | null;
   theme: ThemeType;
   dataId: string | null;
+  company: CompanyType | null;
+}
+
+export type CompanyType = {
+  nome: string;
+  url_facebook: string;
+  url_instagram: string;
+  url_x: string;
 }
 
 export type UserType = {

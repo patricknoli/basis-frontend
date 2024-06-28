@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { i18n } from "../../i18n"
 import { AppContext } from "../../contexts/AppContext"
 import Header from "../../components/Header/External";
@@ -51,6 +51,12 @@ const Login: React.FC = () => {
       }, 1500);
     }
   }
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const res = localStorage.getItem('res');
+    res && url.searchParams.set('res', res);
+  }, [])
 
   return (
     <>
