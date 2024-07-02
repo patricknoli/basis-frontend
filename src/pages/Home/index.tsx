@@ -11,7 +11,7 @@ import { IoShareOutline } from "react-icons/io5"
 import { MdMoreVert } from "react-icons/md"
 
 const Home: React.FC = () => {
-  const { userName, lang } = useContext(AppContext);
+  const { userName, lang, profile } = useContext(AppContext);
   const [openInstall, setOpenInstall] = useState<boolean>(false);
   const iOSIsInstalled = window.matchMedia('(display-mode: standalone)').matches;
 
@@ -22,24 +22,39 @@ const Home: React.FC = () => {
         <h1 className="font-semibold text-3xl mt-4 text-[#3A3541]">{i18n[lang].home_title} {userName}</h1>
         <p className="font-light text-lg mt-2">{i18n[lang].home_subtitle}</p>
 
-        <div className="grid grid-cols-2 gap-4 mt-6">
-          <Link to="/real-estates" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
-            <CiHome size={45} />
-            <span className="text-sm">{i18n[lang].home_nav_real_state}</span>
-          </Link>
-          <Link to="/income-reports" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
-            <CiHome size={45} />
-            <span className="text-sm">{i18n[lang].home_nav_reports}</span>
-          </Link>
-          <Link to="/documents" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
-            <CiHome size={45} />
-            <span className="text-sm">{i18n[lang].home_nav_documents}</span>
-          </Link>
-          <Link to="/videos" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
-            <CiHome size={45} />
-            <span className="text-sm">{i18n[lang].home_nav_videos}</span>
-          </Link>
-        </div>
+        {profile == "owner" && (
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <Link to="/real-estates" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_real_state}</span>
+            </Link>
+            <Link to="/income-reports" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_reports}</span>
+            </Link>
+            <Link to="/documents" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_documents}</span>
+            </Link>
+            <Link to="/videos" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_videos}</span>
+            </Link>
+          </div>
+        )}
+
+        {profile == "tenant" && (
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <Link to="/receipts" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_receipts}</span>
+            </Link>
+            <Link to="/documents/tenant" className="px-4 py-6 flex flex-col gap-2 items-center rounded shadow-md">
+              <CiHome size={45} />
+              <span className="text-sm">{i18n[lang].home_nav_documents}</span>
+            </Link>
+          </div>
+        )}
 
         {!iOSIsInstalled && (
           <div className="mt-5">

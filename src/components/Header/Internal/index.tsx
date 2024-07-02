@@ -8,7 +8,7 @@ import { MdExpandMore } from "react-icons/md";
 import DropdownMenu from "./DropdownMenu";
 
 const Header: React.FC<{ home?: boolean; back?: boolean; backAction?: () => void }> = ({ home, back, backAction }) => {
-  const { userName } = useContext(AppContext);
+  const { userName, profile } = useContext(AppContext);
   const [openDropdown, setOpenDropDown] = useState<boolean>(false);
   const isMobile = window.innerWidth < 768;
 
@@ -16,7 +16,7 @@ const Header: React.FC<{ home?: boolean; back?: boolean; backAction?: () => void
     <>
       <div className="py-2 px-4 w-full z-40 fixed top-0 left-0 bg-white shadow-md flex items-center">
         {home && (
-          <Link to="/home" className="md:hidden">
+          <Link to={profile == "owner" ? "/home" : "/home/tenant"} className="md:hidden">
             <CiHome size={24} />
           </Link>
         )}

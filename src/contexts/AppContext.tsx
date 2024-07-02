@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ThemeType, UserType } from "./types";
 import { api } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -16,6 +17,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
   const [dataId, setDataId] = useState<string | null>(null);
   const [company, setCompany] = useState<CompanyType | null>(null);
+  const navigate = useNavigate();
 
   async function getTheme() {
     setTheme(theme);
@@ -35,6 +37,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     localStorage.setItem('profile', selected_profile)
   }
 
+  function saveToken(token: string) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+    localStorage.setItem('token', token);
+  }
+
   async function verifyToken() {
     try {
       const token = localStorage.getItem('token');
@@ -49,6 +56,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         if (response.status == 200) {
           savedProfile == ("owner" || "tenant") && setProfile(savedProfile);
           updateUser(response.data);
+          saveToken(token);
+        } else {
+          localStorage.removeItem('token');
+          localStorage.removeItem('profile');
+          navigate('/');
         }
       }
     } catch (error) { }
@@ -80,23 +92,31 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [user])
 
   useEffect(() => {
+    getCompany();
+  }, [dataId])
+
+  useEffect(() => {
     getTheme();
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
     const res = urlParams.get("res");
     const savedRes = localStorage.getItem('res');
+    const savedProfile = localStorage.getItem('profile');
     if (res && !savedRes) {
       res && localStorage.setItem('res', res);
       setDataId(res);
     } else {
       savedRes && setDataId(savedRes);
     }
+    if (savedProfile == ("tenant" || "owner")) {
+      setProfile(savedProfile);
+    }
     verifyToken();
-    getCompany();
   }, [])
 
   return (
     <AppContext.Provider value={{
+      saveToken,
       updateUser,
       changeLanguage,
       changeProfile,

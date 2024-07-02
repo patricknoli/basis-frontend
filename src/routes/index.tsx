@@ -10,6 +10,7 @@ import SelectProfile from "../pages/SelectProfile";
 import IncomeReports from "../pages/IncomeReports";
 import Documents from "../pages/Documents";
 import Receipts from "../pages/Receipts";
+import AddressReceipts from "../pages/Receipts/AddressReceipts";
 
 export function AppRoutes() {
   return (
@@ -21,7 +22,9 @@ export function AppRoutes() {
           <Route path="/real-estates" element={<PrivateRoute component={RealEstates} />} />
           <Route path="/home" element={<PrivateRoute component={Home} />} />
 
+          <Route path="/home/tenant" element={<TenantRoute component={Home} />} />
           <Route path="/receipts" element={<TenantRoute component={Receipts} />} />
+          <Route path="/receipts/address/:id" element={<TenantRoute component={AddressReceipts} />} />
           <Route path="/documents/tenant" element={<TenantRoute component={Documents} />} />
 
           <Route path="/" element={<SimpleRoute component={Login} />} />

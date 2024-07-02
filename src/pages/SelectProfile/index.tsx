@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { i18n } from "../../i18n"
 import { AppContext } from "../../contexts/AppContext"
 import Header from "../../components/Header/External";
@@ -7,7 +7,7 @@ import { CiHome } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
 const SelectProfile: React.FC = () => {
-  const { lang, changeProfile } = useContext(AppContext);
+  const { lang, changeProfile, profile } = useContext(AppContext);
   const navigate = useNavigate();
   const isMobile = window.innerWidth <= 768;
 
@@ -17,9 +17,19 @@ const SelectProfile: React.FC = () => {
     if (profile == "owner") {
       navigate(isMobile ? "/home" : "/real-estates")
     } else {
-      navigate(isMobile ? "/receipts" : "/receipts");
+      navigate(isMobile ? "/home/tenant" : "/receipts");
     }
   }
+
+  useEffect(() => {
+    if (profile) {
+      if (profile == "owner") {
+        navigate(isMobile ? "/home" : "/real-estates")
+      } else {
+        navigate(isMobile ? "/home/tenant" : "/receipts");
+      }
+    }
+  }, [])
 
   return (
     <>

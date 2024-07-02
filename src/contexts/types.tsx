@@ -6,6 +6,7 @@ export type AppContextType = {
   updateUser: (auth_user: UserType[]) => void;
   changeLanguage: (lang: "pt-br" | "en-us") => void;
   changeProfile: (profile: "owner" | "tenant") => void;
+  saveToken: (token: string) => void;
   authenticated: boolean;
   lang: "pt-br" | "en-us";
   user: UserType[] | null;

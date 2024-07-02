@@ -14,7 +14,7 @@ import Hero from "../../components/Hero";
 import Button from "../../components/Button";
 
 const Login: React.FC = () => {
-  const { lang, updateUser, dataId } = useContext(AppContext);
+  const { lang, updateUser, dataId, saveToken } = useContext(AppContext);
   const { register, handleSubmit, watch } = useForm();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openSnack, setOpenSnak] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
         setTimeout(() => {
           setIsSubmitting(false);
           updateUser(response.data.usuario);
-          localStorage.setItem('token', response.data.token);
+          saveToken(response.data.token);
         }, 1500)
       } else {
         setTimeout(() => {

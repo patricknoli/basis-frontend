@@ -65,6 +65,7 @@ export const i18n = {
     home_nav_real_state: "Imóveis",
     home_nav_reports: "Informes",
     home_nav_documents: "Documentos",
+    home_nav_receipts: "Boletos",
     home_nav_videos: "Vídeos",
     home_other_nav_cta: "Outras informações",
     home_nav_pwa: "Instalar no meu celular",
@@ -113,7 +114,12 @@ export const i18n = {
     income_reports_step_two_title: "Escolha o período",
     income_reports_step_two_subtitle: "Ano base",
     income_reports_step_two_select_label: "Ano",
-    documents_title: "Documentos"
+    documents_title: "Documentos",
+    receipts_title: "Seus boletos",
+    receipts_subtitle: "Selecione o imóvel para ver mais detalhes",
+    receipts_address_status_open: "Em aberto",
+    receitps_address_status_overdue: "Atrasado",
+    receipts_address_status_ok: "Seus pagamentos estão em dia!"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -180,6 +186,7 @@ export const i18n = {
     home_subtitle: "Welcome back!",
     home_nav_real_state: "Real Estates",
     home_nav_reports: "Reports",
+    home_nav_receipts: "Receipts",
     home_nav_documents: "Documents",
     home_nav_videos: "Videos",
     home_other_nav_cta: "Other information",
@@ -229,6 +236,11 @@ export const i18n = {
     income_reports_step_two_title: "Choose the period",
     income_reports_step_two_subtitle: "Base Year",
     income_reports_step_two_select_label: "Year",
-    documents_title: "Documents"
+    documents_title: "Documents",
+    receipts_title: "Your receipts",
+    receipts_subtitle: "Select the realty to see more details",
+    receipts_address_status_open: "Open payment",
+    receitps_address_status_overdue: "Overdue",
+    receipts_address_status_ok: "Your payments are up to date!"
   }
 }
