@@ -1,9 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ThemeType, UserType } from "./types";
 import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { muiTheme } from "../theme";
+import { Helmet } from "react-helmet";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -20,6 +21,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [dataId, setDataId] = useState<string | null>(null);
   const [company, setCompany] = useState<CompanyType | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function getTheme() {
     try {
@@ -113,6 +115,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [dataId])
 
   useEffect(() => {
+    const url = new URL(window.location.href);
+    const res = localStorage.getItem('res');
+    res && url.searchParams.set('res', res);
+    dataId && url.searchParams.set('res', dataId);
+    window.history.replaceState(null, "", url);
+  }, [location.pathname]);
+
+  useEffect(() => {
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
     const res = urlParams.get("res");
@@ -145,6 +155,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       dataId,
       company
     }}>
+      <Helmet>
+        <title>{company?.nome}</title>
+
+        <link
+          rel="shortcut icon"
+          href={`https://images.locacaonet.basissistemas.com.br/${dataId}/logo.jpg`}
+          type="image/jpeg"
+        />
+      </Helmet>
       <ThemeProvider theme={muiTheme(theme)}>
         {children}
       </ThemeProvider>

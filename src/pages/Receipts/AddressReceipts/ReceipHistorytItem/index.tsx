@@ -16,8 +16,7 @@ const ReceiptHistoryItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
       const response = await api.get('/chamadaRelatorio/recibo', {
         headers: {
           idBanco: dataId,
-          idRecibo: receipt.idrecibo,
-          tipoEnvio: false
+          idRecibo: receipt.idrecibo
         }
       })
       if (response.status == 200) {
