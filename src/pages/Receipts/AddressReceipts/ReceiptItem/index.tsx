@@ -3,7 +3,6 @@ import { ReceiptItemProps } from "./types"
 import Button from "../../../../components/Button"
 import { MdArrowDropDown, MdArrowDropUp, MdCopyAll, MdPix, MdRemoveRedEye, MdSmartphone } from "react-icons/md"
 import { useContext, useState } from "react"
-import QRCode from "react-qr-code"
 import { api } from "../../../../services/api"
 import { AppContext } from "../../../../contexts/AppContext"
 
@@ -163,7 +162,7 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
           <h1 className="flex items-center gap-2 text-zinc-500"><MdPix color="#32BCAD" size={36} /> Pague com Pix</h1>
 
           <div className="p-4 w-fit mt-2 mx-auto rounded border border-gray-500">
-            <QRCode size={146} value={receipt.codigopix} />
+            <img src={qrCode} className="w-[146px]" alt="" />
           </div>
 
           <p className="text-center text-base my-2">Escaneie o QR Code ou copie o código abaixo, cole em seu banco</p>
