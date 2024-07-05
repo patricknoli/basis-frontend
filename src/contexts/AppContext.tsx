@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ThemeType, UserType } from "./types";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider } from "@mui/material";
+import { muiTheme } from "../theme";
 
 export const AppContext = createContext<AppContextType>(
   // @ts-ignore
@@ -20,7 +22,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const navigate = useNavigate();
 
   async function getTheme() {
-    setTheme(theme);
+    try {
+      const response = await api.get('/empresas/listarCores', {
+        headers: {
+          idBanco: dataId
+        }
+      })
+
+      if (response.status == 200) {
+        setTheme({
+          primary: `#${response.data[0].corPrimaria}`,
+          secondary: `#${response.data[0].corSecundaria}`
+        })
+      }
+    } catch (error) {
+    }
   }
 
   function updateUser(auth_user: UserType[]) {
@@ -93,10 +109,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   useEffect(() => {
     getCompany();
+    getTheme();
   }, [dataId])
 
   useEffect(() => {
-    getTheme();
     const url = window.location.search;
     const urlParams = new URLSearchParams(url);
     const res = urlParams.get("res");
@@ -129,7 +145,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       dataId,
       company
     }}>
-      {children}
+      <ThemeProvider theme={muiTheme(theme)}>
+        {children}
+      </ThemeProvider>
     </AppContext.Provider>
   )
 }

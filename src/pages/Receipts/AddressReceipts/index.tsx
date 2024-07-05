@@ -74,7 +74,7 @@ const AddressReceipts: React.FC = () => {
           <h2 className="text-2xl">{i18n[lang].receitps_address_title}</h2>
           <p className="text-sm text-zinc-500">{i18n[lang].receitps_address_warning}</p>
 
-          <div className="grid md:grid-cols-3 mt-6 gap-5">
+          <div className="grid md:grid-cols-3 items-start mt-6 gap-5">
             {receipts.map((receipt) => (
               <Card key={receipt.idrecibo}>
                 <CardContent>

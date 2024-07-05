@@ -1,12 +1,36 @@
-import { Divider } from "@mui/material"
+import { Divider, Snackbar } from "@mui/material"
 import { ReceiptItemProps } from "./types"
 import Button from "../../../../components/Button"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "../../../../contexts/AppContext"
 import { i18n } from "../../../../i18n"
+import { api } from "../../../../services/api"
 
 const ReceiptHistoryItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
-  const { lang } = useContext(AppContext);
+  const { lang, dataId } = useContext(AppContext);
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches;
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
+
+  async function getReceiptFile() {
+    try {
+      const response = await api.get('/chamadaRelatorio/recibo', {
+        headers: {
+          idBanco: dataId,
+          idRecibo: receipt.idrecibo,
+          tipoEnvio: false
+        }
+      })
+      if (response.status == 200) {
+        if (isPWA) {
+          window.location.assign(response.data.url);
+        } else {
+          window.open(response.data.url, "_blank");
+        }
+      }
+    } catch (error) {
+      setOpenSnack(true);
+    }
+  }
 
   return (
     <>
@@ -25,8 +49,15 @@ const ReceiptHistoryItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
       <Divider className="!my-4" />
 
       <div className="flex flex-wrap md:flex-nowrap justify-center gap-4 md:gap-0 md:justify-between items-center">
-        <Button>Ver fatura</Button>
+        <Button action={() => getReceiptFile()}>Ver fatura</Button>
       </div>
+
+      <Snackbar
+        message="Erro ao obter a fatura"
+        open={openSnack}
+        onClose={() => setOpenSnack(false)}
+        autoHideDuration={1500}
+      />
     </>
   )
 }
