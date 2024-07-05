@@ -119,7 +119,14 @@ export const i18n = {
     receipts_subtitle: "Selecione o imóvel para ver mais detalhes",
     receipts_address_status_open: "Em aberto",
     receitps_address_status_overdue: "Atrasado",
-    receipts_address_status_ok: "Seus pagamentos estão em dia!"
+    receipts_address_status_ok: "Seus pagamentos estão em dia!",
+    receitps_address_back_button: "Voltar",
+    receitps_address_title: "Suas faturas",
+    receitps_address_warning: "Lembre-se: os boletos podem demorar até 3 dias para serem atualizados aqui",
+    receipts_address_empty_state: "Pode ficar tranquilo! Suas contas estão em dia :)",
+    receitps_address_history_title: "Faturas antigas",
+    receitps_address_history_empty_state: "Você não possui histórico de boletos",
+    receipts_address_history_item_month: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -241,6 +248,13 @@ export const i18n = {
     receipts_subtitle: "Select the realty to see more details",
     receipts_address_status_open: "Open payment",
     receitps_address_status_overdue: "Overdue",
-    receipts_address_status_ok: "Your payments are up to date!"
+    receipts_address_status_ok: "Your payments are up to date!",
+    receitps_address_back_button: "Back",
+    receitps_address_title: "Your receipts",
+    receitps_address_warning: "Remember: your receipts may take until 3 days to be updated",
+    receipts_address_empty_state: "Pode ficar tranquilo! Suas contas estão em dia :)",
+    receitps_address_history_title: "Faturas antigas",
+    receitps_address_history_empty_state: "Você não possui histórico de boletos",
+    receipts_address_history_item_month: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
   }
 }

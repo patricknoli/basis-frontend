@@ -19,7 +19,7 @@ const Documents: React.FC = () => {
 
   async function getDocuments() {
     try {
-      const response = await api.get('/arquivos/arquivosProprietarios', {
+      const response = await api.get('/arquivos/arquivosCorrentistas', {
         headers: {
           idBanco: dataId,
           idCorrentista: profile == "owner" ? owner?.correntista[0].idcorrentista : tenant?.correntista[0].idcorrentista
