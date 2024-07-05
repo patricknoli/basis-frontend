@@ -52,12 +52,12 @@ export const SimpleRoute: React.FC<Props> = ({ component: RouteComponent }) => {
     if (user.length > 1 && !profile) {
       return <Navigate to={"/select-profile"} />;
     } else {
-      const isOwner = user[0].correntista[0].tipocorrentista == "P"
-      changeProfile(isOwner ? "owner" : "tenant");
-      if (isOwner) {
+      const isOwner = user[0].correntista[0].tipocorrentista == "P";
+      user.length == 1 && changeProfile(isOwner ? "owner" : "tenant");
+      if (profile == "owner") {
         return <Navigate to={isMobile ? "/home" : "/real-estates"} />;
       } else {
-        return <Navigate to={isMobile ? "/receipts" : "/receipts"} />;
+        return <Navigate to={isMobile ? "/home/tenant" : "/receipts"} />;
       }
     }
   }

@@ -22,6 +22,7 @@ export type CompanyType = {
   url_facebook: string;
   url_instagram: string;
   url_x: string;
+  url_manifest: string;
 }
 
 export type UserType = {

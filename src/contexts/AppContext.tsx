@@ -163,6 +163,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           href={`https://images.locacaonet.basissistemas.com.br/${dataId}/logo.jpg`}
           type="image/jpeg"
         />
+
+        <link rel="manifest" href={company?.url_manifest} />
       </Helmet>
       <ThemeProvider theme={muiTheme(theme)}>
         {children}
