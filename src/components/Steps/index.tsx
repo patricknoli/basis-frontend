@@ -1,8 +1,11 @@
 import { Fragment } from "react/jsx-runtime";
 import { StepsProps } from "./types";
 import { IoCheckmark } from "react-icons/io5";
+import { useContext } from "react";
+import { AppContext } from "../../contexts/AppContext";
 
 const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
+  const { theme } = useContext(AppContext);
 
   return (
     <div className="my-4 flex items-center justify-between gap-2 md:gap-0 w-full md:max-w-[790px]">
@@ -16,8 +19,11 @@ const Steps: React.FC<StepsProps> = ({ steps, activeStep, stepsLabels }) => {
                     <IoCheckmark color="#fff" />
                   </div>
                 ) : (
-                  <div className="w-6 h-6 md:w-8 md:h-8 bg-[#00C2FF] rounded-full flex items-center justify-center">
-                    <IoCheckmark color="#fff" />
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white"
+                    style={{
+                      backgroundColor: theme.primary
+                    }}>
+                    {step}
                   </div>
                 )}
 

@@ -121,6 +121,8 @@ const AddressReceipts: React.FC = () => {
             </div>
           )}
         </div>
+
+        <p className="text-center text-[13px] font-medium mt-5 uppercase text-zinc-500">{i18n[lang].receipts_address_history_start_label}</p>
       </Container>
     </>
   )

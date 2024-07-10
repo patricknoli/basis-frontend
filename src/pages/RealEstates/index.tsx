@@ -9,6 +9,7 @@ import StepFour from "./StepFour";
 import { i18n } from "../../i18n";
 import { AppContext } from "../../contexts/AppContext";
 import { ReportType } from "./types";
+import { MdArrowBack } from "react-icons/md";
 
 const RealEstates: React.FC = () => {
   const { lang } = useContext(AppContext);
@@ -39,6 +40,13 @@ const RealEstates: React.FC = () => {
       <Container>
         <Header home={step == 1}
           back={step > 1} backAction={() => setStep(step - 1)} />
+
+        {step > 1 && (
+          <button onClick={() => setStep(step - 1)} className="hidden md:flex items-center gap-2 text-zinc-500">
+            <MdArrowBack />
+            {i18n[lang].receitps_address_back_button}
+          </button>
+        )}
 
         <h1 className="hidden md:block text-3xl text-[#3A3541] font-semibold mb-10">Imóveis</h1>
 

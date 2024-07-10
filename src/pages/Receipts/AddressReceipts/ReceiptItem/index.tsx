@@ -7,7 +7,7 @@ import { api } from "../../../../services/api"
 import { AppContext } from "../../../../contexts/AppContext"
 
 const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
-  const { dataId } = useContext(AppContext);
+  const { dataId, theme } = useContext(AppContext);
   const payPreference = localStorage.getItem('payment');
   const [openPix, setOpenPix] = useState<boolean>(false);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
@@ -51,6 +51,7 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
 
   async function getReceiptFile() {
     try {
+      localStorage.setItem('payment', "boleto");
       const response = await api.get('/chamadaRelatorio/recibo', {
         headers: {
           idBanco: dataId,
@@ -107,7 +108,11 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
           </Button>
         )}
 
-        <button onClick={() => setOpenOptions(!openOptions)} className="flex gap-1 items-center text-sky-500 text-sm font-medium">
+        <button onClick={() => setOpenOptions(!openOptions)}
+          className="flex gap-1 items-center text-sm font-medium"
+          style={{
+            color: theme.primary
+          }}>
 
           {!openOptions && (
             <>
@@ -127,21 +132,21 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
       {openOptions && (
         <>
           <Divider className="!my-4" />
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
             {payPreference == "boleto" && receipt.codigopix && (
-              <button onClick={() => handlePayment("pix")} className="flex items-center gap-1 text-sky-500 uppercase">
+              <button onClick={() => handlePayment("pix")} className="py-2 flex items-center gap-1 text-sky-500 uppercase">
                 <MdPix />
                 Pagar com Pix
               </button>
             )}
             {payPreference == "pix" && receipt.codigodebarras && (
-              <button onClick={() => handlePayment("boleto")} className="flex items-center gap-1 text-sky-500 uppercase">
+              <button onClick={() => handlePayment("boleto")} className="py-2 flex items-center gap-1 text-sky-500 uppercase">
                 <MdCopyAll />
                 código de barras
               </button>
             )}
 
-            <button onClick={() => getReceiptFile()} className="flex items-center gap-1 text-sky-500 uppercase">
+            <button onClick={() => getReceiptFile()} className="py-2 flex items-center gap-1 text-sky-500 uppercase">
               <MdRemoveRedEye />
               Visualizar boleto
             </button>

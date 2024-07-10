@@ -126,7 +126,8 @@ export const i18n = {
     receipts_address_empty_state: "Pode ficar tranquilo! Suas contas estão em dia :)",
     receitps_address_history_title: "Faturas antigas",
     receitps_address_history_empty_state: "Você não possui histórico de boletos",
-    receipts_address_history_item_month: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
+    receipts_address_history_item_month: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"],
+    receipts_address_history_start_label: "Seu histórico de faturas inicia aqui :)"
   },
   "en-us": {
     global_invalid_document_error: "Insert a valid document",
@@ -255,6 +256,7 @@ export const i18n = {
     receipts_address_empty_state: "Pode ficar tranquilo! Suas contas estão em dia :)",
     receitps_address_history_title: "Faturas antigas",
     receitps_address_history_empty_state: "Você não possui histórico de boletos",
-    receipts_address_history_item_month: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    receipts_address_history_item_month: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+    receipts_address_history_start_label: "Your receipts history starts here :)"
   }
 }
