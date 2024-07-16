@@ -1,13 +1,13 @@
 import { Chip, Dialog, Divider, Snackbar } from "@mui/material"
 import { ReceiptItemProps } from "./types"
 import Button from "../../../../components/Button"
-import { MdArrowDropDown, MdArrowDropUp, MdCopyAll, MdPix, MdRemoveRedEye, MdSmartphone } from "react-icons/md"
+import { MdArrowDropDown, MdArrowDropUp, MdCopyAll, MdEmail, MdPhone, MdPix, MdRemoveRedEye, MdSmartphone, MdWhatsapp } from "react-icons/md"
 import { useContext, useState } from "react"
 import { api } from "../../../../services/api"
 import { AppContext } from "../../../../contexts/AppContext"
 
 const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
-  const { dataId, theme } = useContext(AppContext);
+  const { dataId, theme, contact } = useContext(AppContext);
   const payPreference = localStorage.getItem('payment');
   const [openPix, setOpenPix] = useState<boolean>(false);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
@@ -16,6 +16,7 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
   const isPWA = window.matchMedia('(display-mode: standalone)').matches;
   const [qrCode, setQrCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [openContact, setOpenContact] = useState<boolean>(false);
 
   function handlePayment(type: "pix" | "boleto") {
     localStorage.setItem('payment', type);
@@ -102,7 +103,7 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
           </Button>
         )}
         {!receipt.codigodebarras && !receipt.codigopix && (
-          <Button>
+          <Button action={() => setOpenContact(true)}>
             <MdSmartphone className="mr-1" />
             Entre em contato
           </Button>
@@ -180,6 +181,45 @@ const ReceiptItem: React.FC<ReceiptItemProps> = ({ receipt }) => {
                 <MdCopyAll size={24} color="#32BCAD" />
               </button>
             </div>
+          </div>
+        </div>
+      </Dialog>
+
+      <Dialog open={openContact}>
+        <div className="py-2 px-6 w-full md:w-[500px]">
+          <button className="absolute right-3 top-1 text-2xl" onClick={() => setOpenPix(false)}>&times;</button>
+
+          <h1 className="flex items-center gap-2 text-zinc-500">Entre em contato</h1>
+
+          <div className="flex flex-col gap-2 mt-6">
+            {contact?.phone_1 && contact.phone_1.length > 7 && (
+              <div className="flex gap-2 items-center">
+                <MdPhone />
+                <span>Telefone:</span>
+                <a href={`tel:${contact?.phone_1}`}>{contact?.phone_1_view}</a>
+              </div>
+            )}
+            {contact?.phone_2 && contact.phone_2.length > 7 && (
+              <div className="flex gap-2 items-center">
+                <MdPhone />
+                <span>Telefone:</span>
+                <a href={`tel:${contact?.phone_2}`}>{contact?.phone_2_view}</a>
+              </div>
+            )}
+            {contact?.email && (
+              <div className="flex gap-2 items-center">
+                <MdEmail />
+                <span>Email:</span>
+                <a href={`mailto:${contact?.email}`}>{contact?.email}</a>
+              </div>
+            )}
+            {contact?.whatsapp && (
+              <div className="flex gap-2 items-center">
+                <MdWhatsapp />
+                <span>Whatsapp:</span>
+                <a href={`wa.me/${contact?.whatsapp}`} className="p-1 rounded text-white bg-[#08D95D]">Iniciar conversa</a>
+              </div>
+            )}
           </div>
         </div>
       </Dialog>

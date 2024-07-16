@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ThemeType, UserType } from "./types";
+import { AppContextInitialValues, AppContextType, AppProviderProps, CompanyType, ContactInfoType, ThemeType, UserType } from "./types";
 import { api } from "../services/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -20,6 +20,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<ThemeType>(AppContextInitialValues.theme);
   const [dataId, setDataId] = useState<string | null>(null);
   const [company, setCompany] = useState<CompanyType | null>(null);
+  const [contact, setContact] = useState<ContactInfoType | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,6 +36,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setTheme({
           primary: `#${response.data[0].corPrimaria}`,
           secondary: `#${response.data[0].corSecundaria}`
+        });
+        setContact({
+          phone_1_view: `(${response.data[0].dd1}) ${response.data[0].telefone1}`,
+          phone_1: `${response.data[0].dd1}${response.data[0].telefone1}`,
+          phone_2_view: `(${response.data[0].dd2}) ${response.data[0].telefone2}`,
+          phone_2: `${response.data[0].dd2}${response.data[0].telefone2}`,
+          whatsapp: response.data[0].whatsapp,
+          email: response.data[0].email
         })
       }
     } catch (error) {
@@ -153,7 +162,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       userName,
       theme,
       dataId,
-      company
+      company,
+      contact
     }}>
       <Helmet>
         <title>{company?.nome}</title>

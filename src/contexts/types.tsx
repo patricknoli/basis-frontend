@@ -15,6 +15,7 @@ export type AppContextType = {
   theme: ThemeType;
   dataId: string | null;
   company: CompanyType | null;
+  contact: ContactInfoType | null;
 }
 
 export type CompanyType = {
@@ -23,6 +24,15 @@ export type CompanyType = {
   url_instagram: string;
   url_x: string;
   url_manifest: string;
+}
+
+export type ContactInfoType = {
+  phone_1?: string;
+  phone_1_view?: string;
+  phone_2?: string;
+  phone_2_view?: string;
+  whatsapp?: string;
+  email?: string;
 }
 
 export type UserType = {
