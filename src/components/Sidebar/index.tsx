@@ -3,9 +3,10 @@ import { MdFileDownload, MdFolder, MdHelp, MdList } from "react-icons/md";
 import NavItem from "./NavItem";
 import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
+import { i18n } from "../../i18n";
 
 const Sidebar: React.FC = () => {
-  const { profile, dataId, company } = useContext(AppContext);
+  const { profile, dataId, company, lang } = useContext(AppContext);
 
   return (
     <nav className="hidden md:block w-[300px] h-full shadow-md z-50 fixed left-0 top-0">
@@ -21,15 +22,15 @@ const Sidebar: React.FC = () => {
             }}>
             <NavItem pathname="/real-estates"
               icon={<MdList />}>
-              Imóveis
+              {i18n[lang].sidebar_owner_properties}
             </NavItem>
             <NavItem pathname="/income-reports"
               icon={<MdFileDownload />}>
-              Informes
+              {i18n[lang].sidebar_owner_income_reports}
             </NavItem>
             <NavItem pathname="/documents"
               icon={<MdFolder />}>
-              Documentos
+              {i18n[lang].sidebar_owner_documents}
             </NavItem>
           </ButtonGroup>
         )}
@@ -40,23 +41,23 @@ const Sidebar: React.FC = () => {
             }}>
             <NavItem pathname="/receipts"
               icon={<MdList />}>
-              Boletos
+              {i18n[lang].sidebar_tenant_receipts}
             </NavItem>
             <NavItem pathname="/documents/tenant"
               icon={<MdFolder />}>
-              Documentos
+              {i18n[lang].sidebar_tenant_documents}
             </NavItem>
           </ButtonGroup>
         )}
 
-        <p className="mt-6 text-sm text-[#A1A7C4]">Outras informações</p>
+        <p className="mt-6 text-sm text-[#A1A7C4]">{i18n[lang].sidebar_other_label}</p>
         <ButtonGroup orientation="vertical" className="w-full mt-3"
           style={{
             backgroundColor: "#f0f0f0"
           }}>
           <NavItem pathname="/videos"
             icon={<MdHelp />}>
-            Vídeos
+            {i18n[lang].sidebar_videos}
           </NavItem>
         </ButtonGroup>
       </div>
