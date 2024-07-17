@@ -125,9 +125,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    const res = localStorage.getItem('res');
+    const savedRes = localStorage.getItem('res');
+    const res = url.searchParams.get('res');
     res && url.searchParams.set('res', res);
-    dataId && url.searchParams.set('res', dataId);
+    savedRes && (!res || res == savedRes) && url.searchParams.set('res', savedRes);
     window.history.replaceState(null, "", url);
   }, [location.pathname]);
 
@@ -141,7 +142,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       res && localStorage.setItem('res', res);
       setDataId(res);
     } else {
-      savedRes && setDataId(savedRes);
+      if (res !== savedRes) {
+        res && localStorage.setItem('res', res);
+        setDataId(res);
+      } else {
+        savedRes && setDataId(savedRes);
+      }
     }
     if (savedProfile == ("tenant" || "owner")) {
       setProfile(savedProfile);
