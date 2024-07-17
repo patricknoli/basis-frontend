@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { i18n } from "../../../i18n";
 import { StepTwoProps } from "./types"
 import { AppContext } from "../../../contexts/AppContext";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { MenuItem, Snackbar, TextField } from "@mui/material";
 import Button from "../../../components/Button";
 import { api } from "../../../services/api";
 
@@ -12,13 +12,19 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveYear }) => {
   const [year, setYear] = useState<string>("");
   const [yearOptions, setYearOptions] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
 
   function handleNext() {
     setIsSubmitting(true);
     saveYear(year);
-    setTimeout(() => {
-      next();
-    }, 1500)
+    if (year !== "") {
+      setTimeout(() => {
+        next();
+      }, 1500)
+    } else {
+      setOpenSnack(true);
+      setIsSubmitting(false);
+    }
   }
 
   async function getYears() {
@@ -46,19 +52,16 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveYear }) => {
       <div className="p-4 mt-4 bg-white rounded">
         <p className="font-medium text-base text-[#181818] mb-4">{i18n[lang].income_reports_step_two_subtitle}</p>
 
-        <FormControl className="w-full md:max-w-[300px]">
-          <InputLabel id="year-select-label">{i18n[lang].income_reports_step_two_select_label}</InputLabel>
-          <Select
-            labelId="year-select"
-            id="year-select"
-            onChange={(e) => setYear(e.target.value)}
-            value={year}
-          >
-            {yearOptions.map((option) => (
-              <MenuItem key={option} value={option}>{option}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <TextField
+          className="w-full md:max-w-[300px]"
+          select
+          onChange={(e) => setYear(e.target.value)}
+          value={year}
+          label={i18n[lang].income_reports_step_two_select_label}>
+          {yearOptions.map((option) => (
+            <MenuItem key={option} value={option}>{option}</MenuItem>
+          ))}
+        </TextField>
       </div>
 
       <div className="fixed left-0 bottom-3 w-full px-8 md:w-auto md:left-auto md:right-0">
@@ -67,6 +70,13 @@ const StepTwo: React.FC<StepTwoProps> = ({ next, saveYear }) => {
           {i18n[lang].real_estates_next_step}
         </Button>
       </div>
+
+      <Snackbar
+        open={openSnack}
+        message="Selecione um ano para avançar"
+        autoHideDuration={3000}
+        onClose={() => setOpenSnack(false)}
+      />
     </>
   )
 }

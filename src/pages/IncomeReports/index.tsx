@@ -8,6 +8,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import { IncomeReportType } from "./types";
 import StepOne from "./StepOne";
+import { MdArrowBack } from "react-icons/md";
 
 const IncomeReports: React.FC = () => {
   const { lang } = useContext(AppContext);
@@ -25,6 +26,13 @@ const IncomeReports: React.FC = () => {
       <Container>
         <Header home={step == 1}
           back={step > 1} backAction={() => setStep(step - 1)} />
+
+        {step > 1 && (
+          <button onClick={() => setStep(step - 1)} className="hidden md:flex items-center gap-2 text-zinc-500">
+            <MdArrowBack />
+            {i18n[lang].receitps_address_back_button}
+          </button>
+        )}
 
         <h1 className="hidden md:block text-3xl text-[#3A3541] font-semibold mb-10">{i18n[lang].income_reports_title}</h1>
 

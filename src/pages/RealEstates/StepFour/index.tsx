@@ -109,7 +109,7 @@ const StepFour: React.FC<StepFourProps> = ({ reports, properties, initialDate, f
           value={fileType}
           onChange={(e) => setFileType(e.target.value)}
         >
-          <FormControlLabel value="pdf" control={<Radio />} label={i18n[lang].real_estates_fourth_step_input_file_type_one} />
+          <FormControlLabel value="pdf" control={<Radio defaultChecked />} label={i18n[lang].real_estates_fourth_step_input_file_type_one} />
           <FormControlLabel value="xsls" control={<Radio />} label={i18n[lang].real_estates_fourth_step_input_file_type_two} />
         </RadioGroup>
 
