@@ -124,12 +124,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [dataId])
 
   useEffect(() => {
-    const url = new URL(window.location.href);
+    const url = window.location.href;
+    const parsedUrl = new URL(url);
+    const urlParams = new URLSearchParams(url);
     const savedRes = localStorage.getItem('res');
-    const res = url.searchParams.get('res');
-    res && url.searchParams.set('res', res);
-    savedRes && (!res || res == savedRes) && url.searchParams.set('res', savedRes);
-    window.history.replaceState(null, "", url);
+    const res = urlParams.get('res');
+    console.log('savedRes', savedRes, 'res', res, 'dataId', dataId);
+    res && parsedUrl.searchParams.set('res', res);
+    savedRes && savedRes !== "null" && (!res || res == savedRes) && parsedUrl.searchParams.set('res', savedRes);
+    window.history.replaceState(null, "", parsedUrl);
   }, [location.pathname]);
 
   useEffect(() => {
