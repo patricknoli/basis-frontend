@@ -126,12 +126,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   useEffect(() => {
     const url = window.location.href;
     const parsedUrl = new URL(url);
-    const urlParams = new URLSearchParams(url);
     const savedRes = localStorage.getItem('res');
-    const res = urlParams.get('res');
-    console.log('savedRes', savedRes, 'res', res, 'dataId', dataId);
-    res && parsedUrl.searchParams.set('res', res);
-    savedRes && savedRes !== "null" && (!res || res == savedRes) && parsedUrl.searchParams.set('res', savedRes);
+    const res = parsedUrl.searchParams.get('res');
+    if (res && res !== "null") {
+      parsedUrl.searchParams.set('res', res);
+    } else if (savedRes && savedRes !== "null") {
+      if (!res || res == savedRes || res == "null") {
+        parsedUrl.searchParams.set('res', savedRes);
+      }
+    }
     window.history.replaceState(null, "", parsedUrl);
   }, [location.pathname]);
 
@@ -145,7 +148,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       res && localStorage.setItem('res', res);
       setDataId(res);
     } else {
-      if (res !== savedRes) {
+      if (res !== savedRes && res !== "null") {
         res && localStorage.setItem('res', res);
         setDataId(res);
       } else {
