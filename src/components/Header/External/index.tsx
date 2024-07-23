@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../../contexts/AppContext";
 
 const Header: React.FC<{ backButton?: boolean }> = ({ backButton }) => {
+  const { dataId, company } = useContext(AppContext);
+
   return (
     <div className="p-5 relative">
       {backButton && (
@@ -10,8 +14,8 @@ const Header: React.FC<{ backButton?: boolean }> = ({ backButton }) => {
         </Link>
       )}
       <div className={`flex gap-2 items-center ${backButton ? "justify-center" : "justify-start"}`}>
-        <img src={`https://images.locacaonet.basissistemas.com.br/5/logo.jpg`} alt="Logo" className="w-[30px]" />
-        <h1 className="font-bold text-md">Logo Empresa</h1>
+        <img src={`https://images.locacaonet.basissistemas.com.br/${dataId}/logo.jpg`} alt="Logo" className="w-[30px]" />
+        <h1 className="font-bold text-md">{company?.nome}</h1>
       </div>
     </div>
   )
