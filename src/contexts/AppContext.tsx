@@ -182,8 +182,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
         <link
           rel="shortcut icon"
-          href={`https://images.locacaonet.basissistemas.com.br/${dataId}/logo.jpg`}
-          type="image/jpeg"
+          href={`https://images.locacaonet.basissistemas.com.br/${dataId}/android-chrome-192x192.png`}
+          type="image/png"
         />
         <link rel="apple-touch-icon" sizes="180x180" href={`https://images.locacaonet.basissistemas.com.br/${dataId}/apple-touch-icon.png`}></link>
 
